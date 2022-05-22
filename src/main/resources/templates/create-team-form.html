@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Creazione team</title>
+</head>
+
+<body>
+	<form th:action="@{/create-team}" method="POST" th:object="${team}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}">Errore globale</p>
+		</div>
+		<div>
+			Nome: <input type="text" th:field="*{name}">
+			<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+		</div>
+		<div>
+			<button type="submit">Crea</button>
+		</div>
+	</form>
+</body>
+
+</html>

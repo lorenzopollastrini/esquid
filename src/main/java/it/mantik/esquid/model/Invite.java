@@ -1,30 +1,36 @@
 package it.mantik.esquid.model;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-public class Event {
-	
+@Getter @Setter
+public class Invite {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@ManyToOne
-	private Team team;
-	
-	private String name;
+	private Team sender;
+
+	@ManyToOne
+	private Member recipient;
 	
 	private LocalDateTime dateTime;
 	
-	@ManyToMany
-	private Collection<Member> participants;
+	public Invite(Team sender, Member recipient) {
+		this.sender = sender;
+		this.recipient = recipient;
+		dateTime = LocalDateTime.now();
+	}
 	
 }

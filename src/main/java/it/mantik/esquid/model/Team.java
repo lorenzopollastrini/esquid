@@ -26,7 +26,7 @@ public class Team {
 	private String name;
 	
 	@ManyToMany(mappedBy = "teams")
-	private Set<Member> members;
+	private Set<User> members;
 	
 	@OneToMany(mappedBy = "team")
 	private List<Event> events;

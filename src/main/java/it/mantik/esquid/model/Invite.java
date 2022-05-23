@@ -23,11 +23,11 @@ public class Invite {
 	private Team sender;
 
 	@ManyToOne
-	private Member recipient;
+	private User recipient;
 	
 	private LocalDateTime dateTime;
 	
-	public Invite(Team sender, Member recipient) {
+	public Invite(Team sender, User recipient) {
 		this.sender = sender;
 		this.recipient = recipient;
 		dateTime = LocalDateTime.now();

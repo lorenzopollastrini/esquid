@@ -19,7 +19,7 @@ public class Membership {
 	private Long id;
 	
 	@ManyToOne
-	private Member user;
+	private User user;
 	
 	@ManyToOne
 	private Team team;

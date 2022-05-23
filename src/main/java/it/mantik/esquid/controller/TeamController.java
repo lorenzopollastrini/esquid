@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.mantik.esquid.model.Invite;
-import it.mantik.esquid.model.Member;
+import it.mantik.esquid.model.User;
 import it.mantik.esquid.model.Team;
 import it.mantik.esquid.service.InviteService;
 import it.mantik.esquid.service.MemberService;
@@ -81,7 +81,7 @@ public class TeamController {
 		
 		Team sender = teamService.findById(teamId);
 		
-		Member recipient = memberService.findById(username);
+		User recipient = memberService.findById(username);
 		
 		Invite invite = new Invite(sender, recipient);
 		

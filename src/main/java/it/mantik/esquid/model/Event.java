@@ -25,6 +25,6 @@ public class Event {
 	private LocalDateTime dateTime;
 	
 	@ManyToMany
-	private Collection<Member> participants;
+	private Collection<User> participants;
 	
 }

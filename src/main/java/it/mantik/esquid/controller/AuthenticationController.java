@@ -33,21 +33,6 @@ public class AuthenticationController {
 		return "register";
 		
 	}
-
-	@GetMapping("/login")
-	public String getLoginForm(Model model) {
-		return "login";
-	}
-	
-	@GetMapping("/logout")
-	public String logout(Model model) {
-		return "login";
-	}
-	
-	@GetMapping("/default")
-	public String defaultAfterLogin(Model model) {
-		return "redirect:/login";
-	}
 	
 	@PostMapping("/register")
 	public String register(@Valid @ModelAttribute("user") User user,
@@ -67,6 +52,21 @@ public class AuthenticationController {
 		
 		return "register";
 		
+	}
+
+	@GetMapping("/login")
+	public String getLoginForm(Model model) {
+		return "login";
+	}
+	
+	@GetMapping("/default")
+	public String defaultAfterLogin(Model model) {
+		return "redirect:/login";
+	}
+	
+	@GetMapping("/logout")
+	public String logout(Model model) {
+		return "login";
 	}
 	
 }

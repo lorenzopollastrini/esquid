@@ -33,7 +33,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated()
 			
 			.and().formLogin() // Login paragraph
-			//.loginPage("/login")
+			.loginPage("/login")
 			.defaultSuccessUrl("/default")
 			
 			.and().logout() // Logout paragraph

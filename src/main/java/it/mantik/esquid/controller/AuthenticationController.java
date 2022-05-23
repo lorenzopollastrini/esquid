@@ -25,7 +25,7 @@ public class AuthenticationController {
 	PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/register")
-	public String showRegisterForm(Model model) {
+	public String getRegisterForm(Model model) {
 
 		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
@@ -35,30 +35,26 @@ public class AuthenticationController {
 	}
 
 	@GetMapping("/login")
-	public String showLoginForm(Model model) {
+	public String getLoginForm(Model model) {
 		return "login";
 	}
 	
 	@GetMapping("/logout")
 	public String logout(Model model) {
-		return "redirect:/login";
+		return "login";
 	}
 	
 	@GetMapping("/default")
 	public String defaultAfterLogin(Model model) {
-				
-		return "index";
-		
+		return "redirect:/login";
 	}
 	
 	@PostMapping("/register")
-	public String registerUser(@Valid @ModelAttribute("user") User user,
+	public String register(@Valid @ModelAttribute("user") User user,
 			BindingResult userBindingResult,
 			@Valid @ModelAttribute("credentials") Credentials credentials,
 			BindingResult credentialsBindingResult,
 			Model model) {
-		
-		System.out.println("POST /register");
 		
 		user.setAlias(credentials.getUsername());
 		

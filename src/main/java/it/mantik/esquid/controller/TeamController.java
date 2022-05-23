@@ -29,7 +29,7 @@ public class TeamController {
 	@Autowired
 	private InviteService inviteService;
 	
-	@GetMapping("/create-team")
+	@GetMapping("/teams/new")
 	public String getCreateTeamForm(Model model) {
 		
 		model.addAttribute("team", new Team());
@@ -38,7 +38,7 @@ public class TeamController {
 		
 	}
 	
-	@PostMapping("/create-team")
+	@PostMapping("/teams")
 	public String createTeam(@ModelAttribute("team") Team team,
 			BindingResult bindingResult, Model model) {
 		
@@ -53,7 +53,7 @@ public class TeamController {
 		
 	}
 	
-	@GetMapping("/team/{teamId}")
+	@GetMapping("/teams/{teamId}")
 	public String getTeam(@PathVariable("teamId") Long teamId, Model model) {
 		
 		Team team = teamService.findById(teamId);
@@ -64,18 +64,7 @@ public class TeamController {
 		
 	}
 	
-	@GetMapping("/team/{teamId}/invite")
-	public String getInviteForm(@PathVariable("teamId") Long teamId, Model model) {
-		
-		Team team = teamService.findById(teamId);
-		
-		model.addAttribute("team", team);
-		
-		return "invite-form";
-		
-	}
-	
-	@PostMapping("/team/{teamId}/invite")
+	@PostMapping("/teams/{teamId}/invite")
 	public String invite(@PathVariable("teamId") Long teamId, 
 			@RequestParam("username") String username) {
 		

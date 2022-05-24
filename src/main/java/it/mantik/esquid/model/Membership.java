@@ -1,6 +1,8 @@
 package it.mantik.esquid.model;
 
-import java.util.Collection;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,7 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter @Setter
 public class Membership {
 	
 	@Id
@@ -26,6 +32,26 @@ public class Membership {
 	
 	@ElementCollection(targetClass = UserRole.class)
 	@Enumerated(EnumType.STRING)
-	private Collection<UserRole> roles;
+	private Set<UserRole> roles;
+	
+	public Membership() {
+		
+	}
+	
+	public Membership(User user, Team team) {
+		this.user = user;
+		this.team = team;
+		roles = new HashSet<>();
+	}
+	
+	public Membership(User user, Team team, UserRole role) {
+		this.user = user;
+		this.team = team;
+		roles = new HashSet<>(Arrays.asList(role));
+	}
+	
+	public void addRole(UserRole role) {
+		roles.add(role);
+	}
 
 }

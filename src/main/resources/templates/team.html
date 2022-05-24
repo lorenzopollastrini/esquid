@@ -8,9 +8,36 @@
 
 <body>
 	<div>
-		<h4>Team</h4>
 		<div>
+			<h4>Generalità squadra</h4>
 			<span th:text="${team.name}">Nome team</span>
+		</div>
+		<div>
+			<h4>Invita utente</h4>
+			<form th:action="@{'/teams/' + ${team.id} + '/invite'}" method="POST">
+				<div>
+					Username: <input type="text" name="username">
+				</div>
+				<div>
+					<button type="submit">Invita</button>
+				</div>
+			</form>
+			<div>
+				<h4>Inviti in sospeso</h4>
+				<ul>
+					<li th:each="invite : ${invites}">
+						<span th:text="${'To ' + invite.recipient.alias + ' (' + invite.dateTime + ')'}"></span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div>
+			<h4>Membri</h4>
+			<ul>
+				<li th:each="membership : ${memberships}">
+					<span th:text="${membership.user.alias}"></span>
+				</li>
+			</ul>
 		</div>
 	</div>
 	<footer><a href="/">Home</a></footer>

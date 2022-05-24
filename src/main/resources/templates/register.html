@@ -2,15 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
 <head>
-	<title>Sign up</title>
+	<title>Registrati</title>
 </head>
 
 <body>
-	<h1>Sign up</h1>
-	<div th:if="${param.error}">
-		Invalid username and password.</div>
-	<div th:if="${param.logout}">
-		You have been logged out.</div>
+	<h1>Registrati</h1>
 	<form th:action="@{/register}" method="post">
 		<div>
 			<input type="text" name="username" placeholder="Username" />
@@ -18,7 +14,7 @@
 		<div>
 			<input type="password" name="password" placeholder="Password" />
 		</div>
-		<input type="submit" value="Sign up" />
+		<input type="submit" value="Registrati" />
 	</form>
 </body>
 

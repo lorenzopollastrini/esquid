@@ -15,12 +15,12 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	@Transactional
-	public User saveUser(User user) {
+	public User save(User user) {
 		return userRepository.save(user);
 	}
 	
-	public User getUser(String id) {
+	public User findById(String id) {
 		return userRepository.findById(id).get();
 	}
-
+	
 }

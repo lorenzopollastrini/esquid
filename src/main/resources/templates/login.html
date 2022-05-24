@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
 <head>
-	<title>Log in</title>
+	<title>Accedi</title>
 </head>
 
 <body>
-	<h1>Log in</h1>
+	<h1>Accedi</h1>
 	<div th:if="${param.error}">
-		Invalid username and password.</div>
+		Credenziali errate.</div>
 	<div th:if="${param.logout}">
-		You have been logged out.</div>
+		Hai effettuato il logout.</div>
 	<form th:action="@{/login}" method="post">
 		<div>
 			<input type="text" name="username" placeholder="Username" />
@@ -18,8 +18,9 @@
 		<div>
 			<input type="password" name="password" placeholder="Password" />
 		</div>
-		<input type="submit" value="Log in" />
+		<input type="submit" value="Accedi" />
 	</form>
+	<span>Non hai ancora un account? <a th:href="@{/register}">Registrati</a>.</span>
 </body>
 
 </html>

@@ -27,4 +27,8 @@ public class Event {
 	@ManyToMany
 	private Collection<User> participants;
 	
+	public Event() {
+		
+	}
+	
 }

@@ -61,12 +61,7 @@ public class AuthenticationController {
 	
 	@GetMapping("/default")
 	public String defaultAfterLogin(Model model) {
-		return "redirect:/login";
-	}
-	
-	@GetMapping("/logout")
-	public String logout(Model model) {
-		return "login";
+		return "redirect:/";
 	}
 	
 }

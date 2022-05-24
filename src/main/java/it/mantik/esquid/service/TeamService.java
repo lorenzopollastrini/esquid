@@ -15,8 +15,8 @@ public class TeamService {
 	private TeamRepository teamRepository;
 	
 	@Transactional
-	public void save(Team team) {
-		teamRepository.save(team);
+	public Team save(Team team) {
+		return teamRepository.save(team);
 	}
 	
 	public Team findById(Long id) {

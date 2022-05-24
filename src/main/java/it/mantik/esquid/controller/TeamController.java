@@ -1,6 +1,10 @@
 package it.mantik.esquid.controller;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,20 +15,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.mantik.esquid.model.Invite;
-import it.mantik.esquid.model.User;
+import it.mantik.esquid.model.Membership;
 import it.mantik.esquid.model.Team;
+import it.mantik.esquid.model.User;
+import it.mantik.esquid.model.UserRole;
 import it.mantik.esquid.service.InviteService;
 import it.mantik.esquid.service.MemberService;
+import it.mantik.esquid.service.MembershipService;
 import it.mantik.esquid.service.TeamService;
+import it.mantik.esquid.service.UserService;
 
 @Controller
 public class TeamController {
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private TeamService teamService;
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MembershipService membershipService;
 	
 	@Autowired
 	private InviteService inviteService;
@@ -44,12 +58,16 @@ public class TeamController {
 		
 		if (!bindingResult.hasErrors()) {
 			
-			System.out.println(team.getName());
-			teamService.save(team);
+			UserDetails currentUserDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			User currentUser = userService.findById(currentUserDetails.getUsername());
+			
+			Team savedTeam = teamService.save(team);
+			
+			membershipService.create(currentUser, savedTeam, UserRole.OWNER);
 			
 		}
 		
-		return "index";
+		return "redirect:/";
 		
 	}
 	
@@ -57,8 +75,12 @@ public class TeamController {
 	public String getTeam(@PathVariable("teamId") Long teamId, Model model) {
 		
 		Team team = teamService.findById(teamId);
+		Collection<Invite> invites = inviteService.findBySender(team);
+		Collection<Membership> memberships = membershipService.findByTeam(team);
 		
 		model.addAttribute("team", team);
+		model.addAttribute("invites", invites);
+		model.addAttribute("memberships", memberships);
 		
 		return "team";
 		
@@ -72,14 +94,9 @@ public class TeamController {
 		
 		User recipient = memberService.findById(username);
 		
-		Invite invite = new Invite(sender, recipient);
+		inviteService.create(sender, recipient);
 		
-		inviteService.save(invite);
-		
-		sender.getInvites().add(invite);
-		recipient.getInvites().add(invite);
-		
-		return "redirect:/";
+		return "redirect:/teams/" + teamId;
 		
 	}
 

@@ -27,6 +27,10 @@ public class Invite {
 	
 	private LocalDateTime dateTime;
 	
+	public Invite() {
+		
+	}
+	
 	public Invite(Team sender, User recipient) {
 		this.sender = sender;
 		this.recipient = recipient;

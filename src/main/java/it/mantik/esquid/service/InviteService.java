@@ -55,6 +55,10 @@ public class InviteService {
 		return inviteRepository.findByRecipient(userService.findById(recipientId));
 	}
 	
+	public void delete(Invite invite) {
+		inviteRepository.delete(invite);
+	}
+	
 	public void deleteById(Long id) {
 		inviteRepository.deleteById(id);
 	}

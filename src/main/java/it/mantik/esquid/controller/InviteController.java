@@ -54,4 +54,16 @@ public class InviteController {
 		
 	}
 	
+	@GetMapping("/invite/{inviteId}/revoke")
+	public String revoke(@PathVariable("inviteId") Long inviteId) {
+		
+		Invite invite = inviteService.findById(inviteId);
+		Team sender = invite.getSender();
+		
+		inviteService.delete(invite);
+		
+		return "redirect:/teams/" + sender.getId();
+		
+	}
+	
 }

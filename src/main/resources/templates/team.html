@@ -27,6 +27,7 @@
 				<ul>
 					<li th:each="invite : ${invites}">
 						<span th:text="${'To ' + invite.recipient.alias + ' (' + invite.dateTime + ')'}"></span>
+						<a th:href="@{'/invite/' + ${invite.id} + '/revoke'}">Revoca</a>
 					</li>
 				</ul>
 			</div>

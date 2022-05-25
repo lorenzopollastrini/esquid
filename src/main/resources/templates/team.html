@@ -26,7 +26,7 @@
 				<h4>Inviti in sospeso</h4>
 				<ul>
 					<li th:each="invite : ${invites}">
-						<span th:text="${'To ' + invite.recipient.alias + ' (' + invite.dateTime + ')'}"></span>
+						<span th:text="${'A ' + invite.recipient.alias + ' (' + invite.dateTime + ')'}"></span>
 						<a th:href="@{'/invite/' + ${invite.id} + '/revoke'}">Revoca</a>
 					</li>
 				</ul>
@@ -37,6 +37,29 @@
 			<ul>
 				<li th:each="membership : ${memberships}">
 					<span th:text="${membership.user.alias}"></span>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<h4>Eventi</h4>
+			<a th:href="@{'/team/' + ${team.id} + '/event/new'}">Crea evento</a>
+			<ul>
+				Eventi programmati
+				<li th:each="event : ${events}">
+					<a th:href="@{'/team/' + ${team.id} + '/event/' + ${event.id}}"
+					th:text="${event.name + ' (' + event.dateTime + ')'}">
+					</a>
+					<a th:if="${!#lists.contains(event.participants, user)}"
+					th:href="@{'/team/' + ${team.id} + '/event/' + ${event.id} + '/participate'}">
+						Partecipa
+					</a>
+					<a th:if="${#lists.contains(event.participants, user)}"
+					th:href="@{'/team/' + ${team.id} + '/event/' + ${event.id} + '/cancel-participation'}">
+						Annulla partecipazione
+					</a>
+					<a th:href="@{'/team/' + ${team.id} + '/event/' + ${event.id} + '/cancel'}">
+						Annulla evento
+					</a>
 				</li>
 			</ul>
 		</div>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Event</title>
+</head>
+
+<body>
+	<div>
+		<div>
+			<h4>Generalità evento</h4>
+			<span th:text="${event.name}">Nome evento</span>
+		</div>
+		<div>
+			<h4>Partecipanti</h4>
+			<ul>
+				<li th:each="participant : ${participants}">
+					<span th:text="${participant.alias}"></span>
+				</li>
+			</ul>
+		</div>
+		<a th:href="@{'/team/' + ${team.id} + '/event/' + ${event.id} + '/cancel'}">
+			Annulla evento
+		</a>
+	</div>
+	<footer><a href="/">Home</a></footer>
+</body>
+
+</html>

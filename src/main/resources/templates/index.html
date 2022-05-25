@@ -15,7 +15,7 @@
 			<h4>Inviti in sospeso</h4>
 			<ul>
 				<li th:each="invite : ${invites}">
-					<span th:text="${'From ' + invite.sender.name + ' (' + invite.dateTime + ')'}"></span>
+					<span th:text="${'Da ' + invite.sender.name + ' (' + invite.dateTime + ')'}"></span>
 					<a th:href="@{'/invite/' + ${invite.id} + '/accept'}">Accetta</a>
 					<a th:href="@{'/invite/' + ${invite.id} + '/decline'}">Rifiuta</a>
 				</li>

@@ -43,7 +43,7 @@ public class TeamController {
 	@Autowired
 	private InviteService inviteService;
 	
-	@GetMapping("/teams/new")
+	@GetMapping("/team/new")
 	public String getCreateTeamForm(Model model) {
 		
 		model.addAttribute("team", new Team());
@@ -52,7 +52,7 @@ public class TeamController {
 		
 	}
 	
-	@PostMapping("/teams")
+	@PostMapping("/team")
 	public String createTeam(@ModelAttribute("team") Team team,
 			BindingResult bindingResult, Model model) {
 		
@@ -71,7 +71,7 @@ public class TeamController {
 		
 	}
 	
-	@GetMapping("/teams/{teamId}")
+	@GetMapping("/team/{teamId}")
 	public String getTeam(@PathVariable("teamId") Long teamId, Model model) {
 		
 		Team team = teamService.findById(teamId);
@@ -86,7 +86,7 @@ public class TeamController {
 		
 	}
 	
-	@PostMapping("/teams/{teamId}/invite")
+	@PostMapping("/team/{teamId}/invite")
 	public String invite(@PathVariable("teamId") Long teamId, 
 			@RequestParam("username") String username) {
 		
@@ -96,7 +96,7 @@ public class TeamController {
 		
 		inviteService.create(sender, recipient);
 		
-		return "redirect:/teams/" + teamId;
+		return "redirect:/team/" + teamId;
 		
 	}
 

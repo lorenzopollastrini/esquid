@@ -14,7 +14,7 @@
 		</div>
 		<div>
 			<h4>Invita utente</h4>
-			<form th:action="@{'/teams/' + ${team.id} + '/invite'}" method="POST">
+			<form th:action="@{'/team/' + ${team.id} + '/invite'}" method="POST">
 				<div>
 					Username: <input type="text" name="username">
 				</div>

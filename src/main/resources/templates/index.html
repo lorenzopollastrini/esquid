@@ -25,12 +25,12 @@
 			<h4>Le mie squadre</h4>
 			<ul>
 				<li th:each="membership : ${memberships}">
-					<a th:href="@{'/teams/' + ${membership.team.id}}" th:text="${membership.team.name}"></a>
+					<a th:href="@{'/team/' + ${membership.team.id}}" th:text="${membership.team.name}"></a>
 				</li>
 			</ul>
 		</div>
 		<div>
-			<a th:href="@{/teams/new}">Crea un team</a>
+			<a th:href="@{/team/new}">Crea un team</a>
 		</div>
 	</div>
 </body>

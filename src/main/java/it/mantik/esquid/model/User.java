@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="users")
+@Table(name="users") // Plural used to avoid reserved keyword "user"
 @Getter @Setter
 public class User {
 	

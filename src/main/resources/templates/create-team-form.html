@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<form th:action="@{/teams}" method="POST" th:object="${team}">
+	<form th:action="@{/team}" method="POST" th:object="${team}">
 		<div>
 			Nome: <input type="text" th:field="*{name}">
 		</div>

@@ -18,7 +18,6 @@ import it.mantik.esquid.model.Invite;
 import it.mantik.esquid.model.Membership;
 import it.mantik.esquid.model.Team;
 import it.mantik.esquid.model.User;
-import it.mantik.esquid.model.UserRole;
 import it.mantik.esquid.service.InviteService;
 import it.mantik.esquid.service.MemberService;
 import it.mantik.esquid.service.MembershipService;
@@ -63,7 +62,7 @@ public class TeamController {
 			
 			Team savedTeam = teamService.save(team);
 			
-			membershipService.create(currentUser, savedTeam, UserRole.OWNER);
+			membershipService.create(currentUser, savedTeam, true);
 			
 		}
 		

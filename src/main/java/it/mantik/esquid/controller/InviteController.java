@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import it.mantik.esquid.model.Invite;
 import it.mantik.esquid.model.Team;
 import it.mantik.esquid.model.User;
-import it.mantik.esquid.model.UserRole;
 import it.mantik.esquid.service.InviteService;
 import it.mantik.esquid.service.MembershipService;
 import it.mantik.esquid.service.UserService;
@@ -37,7 +36,7 @@ public class InviteController {
 		
 		Team team = invite.getSender();
 		
-		membershipService.create(currentUser, team, UserRole.PLAYER);
+		membershipService.create(currentUser, team);
 		
 		inviteService.deleteById(inviteId);
 		

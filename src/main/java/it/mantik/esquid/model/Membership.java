@@ -1,13 +1,6 @@
 package it.mantik.esquid.model;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,28 +23,26 @@ public class Membership {
 	@ManyToOne
 	private Team team;
 	
-	@ElementCollection(targetClass = UserRole.class)
-	@Enumerated(EnumType.STRING)
-	private Set<UserRole> roles;
+	private Boolean isOwnership;
 	
 	public Membership() {
-		
+		isOwnership = false;
 	}
 	
 	public Membership(User user, Team team) {
 		this.user = user;
 		this.team = team;
-		roles = new HashSet<>();
+		isOwnership = false;
 	}
 	
-	public Membership(User user, Team team, UserRole role) {
+	public Membership(User user, Team team, Boolean isOwnership) {
 		this.user = user;
 		this.team = team;
-		roles = new HashSet<>(Arrays.asList(role));
+		this.isOwnership = isOwnership;
 	}
 	
-	public void addRole(UserRole role) {
-		roles.add(role);
+	public void makeOwnership() {
+		isOwnership = true;
 	}
 
 }

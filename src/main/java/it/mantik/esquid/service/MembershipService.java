@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import it.mantik.esquid.model.Membership;
 import it.mantik.esquid.model.Team;
 import it.mantik.esquid.model.User;
-import it.mantik.esquid.model.UserRole;
 import it.mantik.esquid.repository.MembershipRepository;
 
 @Service
@@ -25,8 +24,12 @@ public class MembershipService {
 	@Autowired
 	TeamService teamService;
 	
-	public Membership create(User user, Team team, UserRole role) {
-		return save(new Membership(user, team, role));
+	public Membership create(User user, Team team) {
+		return save(new Membership(user, team));
+	}
+	
+	public Membership create(User user, Team team, Boolean isOwnership) {
+		return save(new Membership(user, team, isOwnership));
 	}
 	
 	@Transactional
@@ -46,11 +49,9 @@ public class MembershipService {
 		return membershipRepository.findByTeam(team);
 	}
 	
-	public void addRole(Long membershipId, UserRole role) {
+	public void makeOwnership(Long membershipId) {
 		
-		Membership membership = findById(membershipId);
-		
-		membership.addRole(role);
+		findById(membershipId).makeOwnership();
 		
 	}
 	

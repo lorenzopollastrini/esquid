@@ -20,7 +20,6 @@ import it.mantik.esquid.model.Team;
 import it.mantik.esquid.model.User;
 import it.mantik.esquid.service.EventService;
 import it.mantik.esquid.service.InviteService;
-import it.mantik.esquid.service.MemberService;
 import it.mantik.esquid.service.MembershipService;
 import it.mantik.esquid.service.TeamService;
 import it.mantik.esquid.service.UserService;
@@ -33,9 +32,6 @@ public class TeamController {
 	
 	@Autowired
 	private TeamService teamService;
-	
-	@Autowired
-	private MemberService memberService;
 	
 	@Autowired
 	private MembershipService membershipService;
@@ -96,7 +92,7 @@ public class TeamController {
 		
 		Team sender = teamService.findById(teamId);
 		
-		User recipient = memberService.findById(username);
+		User recipient = userService.findById(username);
 		
 		inviteService.create(sender, recipient);
 		

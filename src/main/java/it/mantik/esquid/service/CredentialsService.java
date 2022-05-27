@@ -12,15 +12,15 @@ public class CredentialsService {
 	@Autowired
 	private CredentialsRepository credentialsRepository;
 	
-	public Credentials saveCredentials(Credentials credentials) {
+	public Credentials save(Credentials credentials) {
 		return credentialsRepository.save(credentials);
 	}
 	
-	public Credentials getCredentials(Long id) {
+	public Credentials findById(Long id) {
 		return credentialsRepository.findById(id).get();
 	}
 	
-	public Credentials getCredentials(String username) {
+	public Credentials findByUsername(String username) {
 		return credentialsRepository.findByUsername(username).get();
 	}
 	

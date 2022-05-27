@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Admin Home</title>
+</head>
+
+<body>
+	<main>
+		<h1>Admin Home</h1>
+		<section>
+			<h2>Eventi</h2>
+			<a th:href="@{/admin/create-event}">Crea evento</a>
+			<ul>
+				<li th:each="event : ${events}">
+					<span th:text="${event.name}"></span>
+				</li>
+			</ul>
+		</section>
+	</main>
+</body>
+
+</html>

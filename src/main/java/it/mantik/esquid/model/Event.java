@@ -1,15 +1,14 @@
 package it.mantik.esquid.model;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,19 +23,16 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne
-	private Team team;
-	
 	private String name;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime dateTime;
 	
 	@ManyToMany
-	private Set<User> participants;
+	private Collection<User> participants;
 	
 	public Event() {
-		participants = new HashSet<>();
+		participants = new ArrayList<>();
 	}
 	
 	public void addParticipant(User participant) {

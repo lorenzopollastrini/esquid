@@ -1,9 +1,10 @@
 package it.mantik.esquid.authentication;
 
+import static it.mantik.esquid.model.Credentials.ADMIN_ROLE;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,12 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.session.HttpSessionEventPublisher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;;
 
 @Configuration
 @EnableWebSecurity
-public class AuthConfiguration extends WebSecurityConfigurerAdapter {
+public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	DataSource datasource;
@@ -32,11 +32,13 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests() // Authorization paragraph
 			.antMatchers(HttpMethod.GET, "/login", "/register", "/css/**", "/images/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+			.antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
+			.antMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
 			.anyRequest().authenticated()
 			
 			.and().formLogin() // Login paragraph
 			.loginPage("/login")
-			.defaultSuccessUrl("/default")
+			.defaultSuccessUrl("/default", true)
 			
 			.and().logout() // Logout paragraph
 			.logoutUrl("/logout")
@@ -57,7 +59,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 		auth.jdbcAuthentication()
 			.dataSource(datasource)
 			.authoritiesByUsernameQuery("SELECT username, role FROM credentials WHERE username = ?")
-			.usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username = ?");
+			.usersByUsernameQuery("SELECT username, password, enabled FROM credentials WHERE username = ? AND enabled = 'true'");
 		
 	}
 	

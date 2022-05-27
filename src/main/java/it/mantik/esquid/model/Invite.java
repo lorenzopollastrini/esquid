@@ -20,7 +20,7 @@ public class Invite {
 	private Long id;
 	
 	@ManyToOne
-	private Team sender;
+	private Event event;
 
 	@ManyToOne
 	private User recipient;
@@ -31,8 +31,8 @@ public class Invite {
 		
 	}
 	
-	public Invite(Team sender, User recipient) {
-		this.sender = sender;
+	public Invite(Event event, User recipient) {
+		this.event = event;
 		this.recipient = recipient;
 		dateTime = LocalDateTime.now();
 	}

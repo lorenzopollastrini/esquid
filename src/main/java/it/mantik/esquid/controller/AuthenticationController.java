@@ -3,6 +3,8 @@ package it.mantik.esquid.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,14 +42,15 @@ public class AuthenticationController {
 			@Valid @ModelAttribute("credentials") Credentials credentials,
 			BindingResult credentialsBindingResult,
 			Model model) {
-		
-		user.setAlias(credentials.getUsername());
-		
+				
 		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
+			
 			credentials.setUser(user);
 			credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
-			credentialsService.saveCredentials(credentials);
-			return "registration-successful";
+			credentialsService.save(credentials);
+			
+			return "redirect:/login";
+			
 		}
 		
 		return "register";
@@ -61,7 +64,16 @@ public class AuthenticationController {
 	
 	@GetMapping("/default")
 	public String defaultAfterLogin(Model model) {
+
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.findByUsername(userDetails.getUsername());
+		
+		if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
+			return "redirect:/admin";
+		}
+		
 		return "redirect:/";
+		
 	}
 	
 }

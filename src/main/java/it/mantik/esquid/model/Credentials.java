@@ -17,6 +17,7 @@ import lombok.Setter;
 public class Credentials {
 	
 	public static final String DEFAULT_ROLE = "DEFAULT";
+	public static final String ADMIN_ROLE = "ADMIN";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,8 +37,11 @@ public class Credentials {
 	@Column(nullable = false)
 	private String role;
 	
+	private boolean enabled;
+	
 	public Credentials() {
 		role = DEFAULT_ROLE;
+		enabled = false;
 	}
 	
 }

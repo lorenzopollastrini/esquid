@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.mantik.esquid.model.Event;
@@ -35,6 +36,15 @@ public class EventController {
 		if (!eventBindingResult.hasErrors()) {
 			eventService.saveEvent(event);
 		}
+		
+		return "redirect:/admin";
+		
+	}
+	
+	@GetMapping("/admin/event/{eventId}/delete")
+	public String deleteEvent(@PathVariable("eventId") Long eventId) {
+		
+		eventService.deleteById(eventId);
 		
 		return "redirect:/admin";
 		

@@ -15,6 +15,7 @@
 			<ul>
 				<li th:each="event : ${events}">
 					<span th:text="${event.name}"></span>
+					<a th:href="@{'/admin/event/' + ${event.id} + '/delete'}">Annulla evento</a>
 				</li>
 			</ul>
 		</section>

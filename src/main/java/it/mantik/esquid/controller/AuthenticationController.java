@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.mantik.esquid.controller.validator.CredentialsValidator;
 import it.mantik.esquid.model.Credentials;
 import it.mantik.esquid.model.User;
 import it.mantik.esquid.service.CredentialsService;
@@ -25,6 +26,9 @@ public class AuthenticationController {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private CredentialsValidator credentialsValidator;
 	
 	@GetMapping("/register")
 	public String getRegisterForm(Model model) {
@@ -42,6 +46,8 @@ public class AuthenticationController {
 			@Valid @ModelAttribute("credentials") Credentials credentials,
 			BindingResult credentialsBindingResult,
 			Model model) {
+		
+		credentialsValidator.validate(credentials, credentialsBindingResult);
 				
 		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
 			

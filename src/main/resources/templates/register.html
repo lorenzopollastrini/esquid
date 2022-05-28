@@ -8,18 +8,28 @@
 	<h1>Registrati</h1>
 	<form th:action="@{/register}" method="post">
 		<div>
-			<input type="text" name="username" placeholder="Username" />
+			<input type="text" th:field="${credentials.username}" placeholder="Username" />
 		</div>
+		<span th:if="${#fields.hasErrors('credentials.username')}"
+			  th:errors="${credentials.username}"></span>
 		<div>
-			<input type="password" name="password" placeholder="Password" />
+			<input type="password" th:field="${credentials.password}" placeholder="Password" />
 		</div>
+		<span th:if="${#fields.hasErrors('credentials.password')}"
+			  th:errors="${credentials.password}"></span>
 		<div>
-			<input type="text" name="name" placeholder="Nome" />
+			<input type="text" th:field="${user.name}" placeholder="Nome" />
 		</div>
+		<span th:if="${#fields.hasErrors('user.name')}"
+			  th:errors="${user.name}"></span>
 		<div>
-			<input type="text" name="surname" placeholder="Cognome" />
+			<input type="text" th:field="${user.surname}" placeholder="Cognome" />
 		</div>
-		<input type="submit" value="Registrati" />
+		<span th:if="${#fields.hasErrors('user.surname')}"
+			  th:errors="${user.surname}"></span>
+		<div>
+			<input type="submit" value="Registrati" />
+		</div>
 	</form>
 </body>
 

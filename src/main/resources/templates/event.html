@@ -12,7 +12,7 @@
 		<section>
 			<h4>Partecipanti</h4>
 			<ul>
-				<li th:each="participant : ${participants}">
+				<li th:each="participant : ${event.participants}">
 					<span th:text="${participant.surname + ', ' + participant.name}"></span>
 				</li>
 			</ul>

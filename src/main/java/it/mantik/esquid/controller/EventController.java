@@ -55,7 +55,6 @@ public class EventController {
 		Event event = eventService.findById(eventId);
 		
 		model.addAttribute("event", event);
-		model.addAttribute("participants", event.getParticipants());
 		
 		return "event";
 		
@@ -79,6 +78,22 @@ public class EventController {
 		Event event = eventService.findById(eventId);
 		
 		event.addParticipant(credentials.getUser());
+		
+		eventService.saveEvent(event);
+		
+		return "redirect:/";
+		
+	}
+	
+	@GetMapping("/event/{eventId}/cancel-participation")
+	public String cancelParticipationToEvent(@PathVariable("eventId") Long eventId) {
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.findByUsername(userDetails.getUsername());
+		
+		Event event = eventService.findById(eventId);
+		
+		event.removeParticipant(credentials.getUser());
 		
 		eventService.saveEvent(event);
 		

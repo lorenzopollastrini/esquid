@@ -19,6 +19,10 @@ public class MainController {
 	@GetMapping("/")
 	public String home(Model model) {
 		
+		Collection<Event> events = eventService.findAll();
+		
+		model.addAttribute("events", events);
+		
 		return "home";
 		
 	}

@@ -7,7 +7,18 @@
 </head>
 
 <body>
-	
+	<main>
+		<h1>Home</h1>
+		<section>
+			<h2>Eventi</h2>
+			<ul>
+				<li th:each="event : ${events}">
+					<a th:href="@{'/event/' + ${event.id}}" th:text="${event.name}"></a>
+					<a th:href="@{'/event/' + ${event.id} + '/participate'}">Partecipa</a>
+				</li>
+			</ul>
+		</section>
+	</main>
 </body>
 
 </html>

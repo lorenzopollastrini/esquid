@@ -32,6 +32,10 @@ public class EventService {
 		
 	}
 	
+	public Event findById(Long id) {
+		return eventRepository.findById(id).get();
+	}
+	
 	public void deleteById(Long id) {
 		eventRepository.deleteById(id);
 	}

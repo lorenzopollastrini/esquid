@@ -8,6 +8,7 @@
 
 <body>
 	<main>
+		<a th:href="@{/}">Alla User Home</a>
 		<h1>Admin Home</h1>
 		<section th:unless="${#lists.isEmpty(pendingUsers)}">
 			<h2>Utenti in attesa di accettazione</h2>

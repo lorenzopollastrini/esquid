@@ -23,7 +23,7 @@ public class Credentials {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "credentials", cascade = CascadeType.ALL)
 	private User user;
 	
 	@Column(nullable = false, unique = true)

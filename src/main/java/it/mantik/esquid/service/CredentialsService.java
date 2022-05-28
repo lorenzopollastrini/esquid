@@ -1,5 +1,7 @@
 package it.mantik.esquid.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ public class CredentialsService {
 	@Autowired
 	private CredentialsRepository credentialsRepository;
 	
+	@Transactional
 	public Credentials save(Credentials credentials) {
 		return credentialsRepository.save(credentials);
 	}

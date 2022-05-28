@@ -1,5 +1,7 @@
 package it.mantik.esquid.service;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,10 @@ public class UserService {
 	
 	public User findById(String id) {
 		return userRepository.findById(id).get();
+	}
+	
+	public Collection<User> findByEnabled(boolean enabled) {
+		return userRepository.findByEnabled(enabled);
 	}
 	
 }

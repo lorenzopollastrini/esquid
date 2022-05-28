@@ -41,7 +41,7 @@ public class EventController {
 			BindingResult eventBindingResult) {
 		
 		if (!eventBindingResult.hasErrors()) {
-			eventService.saveEvent(event);
+			eventService.save(event);
 		}
 		
 		return "redirect:/admin";
@@ -79,7 +79,7 @@ public class EventController {
 		
 		event.addParticipant(credentials.getUser());
 		
-		eventService.saveEvent(event);
+		eventService.save(event);
 		
 		return "redirect:/";
 		
@@ -95,7 +95,7 @@ public class EventController {
 		
 		event.removeParticipant(credentials.getUser());
 		
-		eventService.saveEvent(event);
+		eventService.save(event);
 		
 		return "redirect:/";
 		

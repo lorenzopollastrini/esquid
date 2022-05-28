@@ -18,7 +18,7 @@ public class EventService {
 	private EventRepository eventRepository;
 	
 	@Transactional
-	public Event saveEvent(Event event) {
+	public Event save(Event event) {
 		return eventRepository.save(event);
 	}
 	

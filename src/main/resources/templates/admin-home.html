@@ -9,6 +9,24 @@
 <body>
 	<main>
 		<h1>Admin Home</h1>
+		<section th:unless="${#lists.isEmpty(pendingUsers)}">
+			<h2>Utenti in attesa di accettazione</h2>
+			<ul>
+				<li th:each="pendingUser : ${pendingUsers}">
+					<span th:text="${pendingUser.surname + ', ' + pendingUser.name}"></span>
+					<a th:href="@{'/admin/credentials/' + ${pendingUser.credentials.id} + '/enable'}">Accetta</a>
+				</li>
+			</ul>
+		</section>
+		<section>
+			<h2>Utenti membri del team</h2>
+			<ul>
+				<li th:each="member : ${members}">
+					<span th:text="${member.surname + ', ' + member.name}"></span>
+					<a th:href="@{'/admin/credentials/' + ${member.credentials.id} + '/disable'}">Disabilita</a>
+				</li>
+			</ul>
+		</section>
 		<section>
 			<h2>Eventi</h2>
 			<a th:href="@{/admin/create-event}">Crea evento</a>

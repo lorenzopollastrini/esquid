@@ -46,6 +46,7 @@ public class AuthenticationController {
 		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
 			
 			credentials.setUser(user);
+			user.setCredentials(credentials);
 			credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
 			credentialsService.save(credentials);
 			

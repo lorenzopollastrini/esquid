@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import it.mantik.esquid.model.Credentials;
 import it.mantik.esquid.model.Event;
+import it.mantik.esquid.model.User;
 import it.mantik.esquid.service.CredentialsService;
 import it.mantik.esquid.service.EventService;
+import it.mantik.esquid.service.UserService;
 
 @Controller
 public class MainController {
 	
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private CredentialsService credentialsService;
@@ -41,8 +46,12 @@ public class MainController {
 	@GetMapping("/admin")
 	public String adminHome(Model model) {
 		
+		Collection<User> pendingUsers = userService.findByEnabled(false);
+		Collection<User> members = userService.findByEnabled(true);
 		Collection<Event> events = eventService.findAll();
 		
+		model.addAttribute("pendingUsers", pendingUsers);
+		model.addAttribute("members", members);
 		model.addAttribute("events", events);
 		
 		return "admin-home";

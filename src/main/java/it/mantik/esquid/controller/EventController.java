@@ -60,6 +60,28 @@ public class EventController {
 		
 	}
 	
+	@GetMapping("/admin/event/{eventId}/update")
+	public String getUpdateEventView(@PathVariable("eventId") Long eventId,
+			Model model) {
+		
+		model.addAttribute("event", eventService.findById(eventId));
+		
+		return "update-event";
+		
+	}
+	
+	@PostMapping("/admin/event/{eventId}/update")
+	public String updateEvent(@Valid @ModelAttribute("event") Event event,
+			BindingResult eventBindingResult) {
+		
+		if (!eventBindingResult.hasErrors()) {
+			eventService.save(event);
+		}
+		
+		return "redirect:/admin";
+		
+	}
+	
 	@GetMapping("/admin/event/{eventId}/delete")
 	public String deleteEvent(@PathVariable("eventId") Long eventId) {
 		

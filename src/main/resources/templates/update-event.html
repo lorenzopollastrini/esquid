@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Modifica evento</title>
+</head>
+
+<body>
+	<form th:action="@{'/admin/event/' + ${event.id} + '/update'}" method="POST" th:object="${event}">
+		<div>
+			Nome dell'evento: <input type="text" th:field="*{name}">
+		</div>
+		<div>
+			Data ed ora dell'evento: <input type="datetime-local" th:field="*{dateTime}">
+		</div>
+		<input type="hidden" th:field="*{id}" />
+		<input type="hidden" th:field="*{participants}" />
+		<div>
+			<button type="submit">Salva modifiche</button>
+		</div>
+	</form>
+</body>
+
+</html>

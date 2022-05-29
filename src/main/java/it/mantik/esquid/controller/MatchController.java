@@ -43,9 +43,12 @@ public class MatchController {
 		
 		if (!matchBindingResult.hasErrors()) {
 			
+			Competition competition = competitionService.findById(competitionId);
+			
+			match.setCompetition(competition);
+			
 			Match savedMatch = matchService.save(match);
 			
-			Competition competition = competitionService.findById(competitionId);
 			competition.addMatch(savedMatch);
 			competitionService.save(competition);
 			
@@ -55,19 +58,17 @@ public class MatchController {
 		
 	}
 	
-	@GetMapping("/admin/competition/{competitionId}/match/{matchId}/update")
+	@GetMapping("/admin/match/{matchId}/update")
 	public String getUpdateMatchView(@PathVariable("matchId") Long matchId,
-			@PathVariable("competitionId") Long competitionId,
 			Model model) {
 		
 		model.addAttribute("match", matchService.findById(matchId));
-		model.addAttribute("competitionId", competitionId);
 		
 		return "update-match";
 		
 	}
 	
-	@PostMapping("/admin/competition/{competitionId}/match/{matchId}/update")
+	@PostMapping("/admin/match/{matchId}/update")
 	public String updateMatch(@Valid @ModelAttribute("match") Match match,
 			BindingResult matchBindingResult) {
 		
@@ -79,14 +80,14 @@ public class MatchController {
 		
 	}
 	
-	@GetMapping("/admin/competition/{competitionId}/match/{matchId}/delete")
-	public String deleteMatch(@PathVariable("matchId") Long matchId,
-			@PathVariable("competitionId") Long competitionId) {
+	@GetMapping("/admin/match/{matchId}/delete")
+	public String deleteMatch(@PathVariable("matchId") Long matchId) {
 		
 		Match match = matchService.findById(matchId);
-		Competition competition = competitionService.findById(competitionId);
+		Competition competition = match.getCompetition();
 		
 		competition.removeMatch(match);
+		competitionService.save(competition);
 		
 		matchService.delete(match);
 		

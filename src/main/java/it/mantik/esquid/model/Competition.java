@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Competition {
 	
 	private String name;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "competition", cascade = CascadeType.REMOVE)
 	private Collection<Match> matches;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

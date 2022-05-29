@@ -20,7 +20,7 @@ public class CompetitionController {
 	@Autowired
 	private CompetitionService competitionService;
 	
-	@GetMapping("/admin/create-competition")
+	@GetMapping("/admin/competition/new")
 	public String getCreateCompetitionView(Model model) {
 		
 		model.addAttribute("competition", new Competition());

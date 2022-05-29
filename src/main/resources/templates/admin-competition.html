@@ -17,8 +17,8 @@
 					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DEFEAT}" th:text="Sconfitta"></span>
 					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DRAW}" th:text="Pareggio"></span>
 					<span th:text="${'vs ' + match.opponent}"></span>
-					<a th:href="'/admin/competition/' + ${competitionId} + '/match/' + ${match.id} + '/update'">Modifica</a>
-					<a th:href="'/admin/competition/' + ${competitionId} + '/match/' + ${match.id} + '/delete'">Cancella</a>
+					<a th:href="'/admin/match/' + ${match.id} + '/update'">Modifica</a>
+					<a th:href="'/admin/match/' + ${match.id} + '/delete'">Cancella</a>
 				</li>
 			</ul>
 		</section>

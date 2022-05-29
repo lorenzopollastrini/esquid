@@ -30,7 +30,7 @@
 		</section>
 		<section>
 			<h2>Eventi</h2>
-			<a th:href="@{/admin/create-event}">Crea evento</a>
+			<a th:href="@{/admin/event/new}">Crea evento</a>
 			<ul>
 				<li th:each="event : ${events}">
 					<span th:text="${event.name}"></span>
@@ -41,7 +41,7 @@
 		</section>
 		<section>
 			<h2>Competizioni</h2>
-			<a th:href="@{/admin/create-competition}">Crea competizione</a>
+			<a th:href="@{/admin/competition/new}">Crea competizione</a>
 			<ul>
 				<li th:each="competition : ${competitions}">
 					<a th:href="@{'/admin/competition/' + ${competition.id}}" th:text="${competition.name}"></a>

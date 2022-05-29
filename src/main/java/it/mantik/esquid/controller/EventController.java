@@ -27,7 +27,7 @@ public class EventController {
 	@Autowired
 	private CredentialsService credentialsService;
 
-	@GetMapping("/admin/create-event")
+	@GetMapping("/admin/event/new")
 	public String getCreateEventView(Model model) {
 		
 		model.addAttribute("event", new Event());

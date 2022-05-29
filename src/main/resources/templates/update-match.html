@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<form th:action="@{'/admin/competition/' + ${competitionId} + '/match/' + ${match.id} + '/update'}" method="POST" th:object="${match}">
+	<form th:action="@{'/admin/match/' + ${match.id} + '/update'}" method="POST" th:object="${match}">
 		<div>
 			Data ed ora di inizio del match: <input type="datetime-local" th:field="*{dateTime}">
 		</div>
@@ -30,6 +30,7 @@
 			</div>
 		</div>
 		<input type="hidden" th:field="*{id}" />
+		<input type="hidden" th:field="*{competition}" />
 		<div>
 			<button type="submit">Salva modifiche</button>
 		</div>

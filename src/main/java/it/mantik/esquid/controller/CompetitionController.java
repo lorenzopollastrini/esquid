@@ -53,6 +53,18 @@ public class CompetitionController {
 		
 	}
 	
+	@GetMapping("/admin/competition/{competitionId}")
+	public String getAdminCompetition(@PathVariable("competitionId") Long competitionId,
+			Model model) {
+		
+		Competition competition = competitionService.findById(competitionId);
+		
+		model.addAttribute("competition", competition);
+		
+		return "admin-competition";
+		
+	}
+	
 	@GetMapping("/admin/competition/{competitionId}/update")
 	public String getUpdateCompetitionView(@PathVariable("competitionId") Long competitionId,
 			Model model) {

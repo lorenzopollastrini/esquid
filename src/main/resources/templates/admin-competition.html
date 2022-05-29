@@ -3,12 +3,12 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>Competizione</title>
+	<title>Competizione (admin)</title>
 </head>
 
 <body>
 	<main>
-		<h1 th:text="${competition.name}"></h1>
+		<h1 th:text="${competition.name} + '(Admin)'"></h1>
 		<section>
 			<h4>Partite</h4>
 			<ul>
@@ -17,6 +17,8 @@
 					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DEFEAT}" th:text="Sconfitta"></span>
 					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DRAW}" th:text="Pareggio"></span>
 					<span th:text="${'vs ' + match.opponent}"></span>
+					<a th:href="'/admin/competition/' + ${competitionId} + '/match/' + ${match.id} + '/update'">Modifica</a>
+					<a th:href="'/admin/competition/' + ${competitionId} + '/match/' + ${match.id} + '/delete'">Cancella</a>
 				</li>
 			</ul>
 		</section>

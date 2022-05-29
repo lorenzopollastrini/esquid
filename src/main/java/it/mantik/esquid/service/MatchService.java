@@ -19,4 +19,16 @@ public class MatchService {
 		return matchRepository.save(match);
 	}
 	
+	public Match findById(Long id) {
+		return matchRepository.findById(id).get();
+	}
+	
+	public void deleteById(Long id) {
+		matchRepository.deleteById(id);
+	}
+	
+	public void delete(Match match) {
+		matchRepository.delete(match);
+	}
+	
 }

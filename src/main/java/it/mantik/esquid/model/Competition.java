@@ -38,4 +38,12 @@ public class Competition {
 		matches = new ArrayList<>();
 	}
 	
+	public void addMatch(Match match) {
+		matches.add(match);
+	}
+	
+	public void removeMatch(Match match) {
+		matches.remove(match);
+	}
+	
 }

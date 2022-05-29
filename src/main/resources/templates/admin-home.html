@@ -44,8 +44,9 @@
 			<a th:href="@{/admin/create-competition}">Crea competizione</a>
 			<ul>
 				<li th:each="competition : ${competitions}">
-					<span th:text="${competition.name}"></span>
-					<a th:href="@{'/admin/competition/' + ${competition.id} + '/update'}">Modifica</a>
+					<a th:href="@{'/admin/competition/' + ${competition.id}}" th:text="${competition.name}"></a>
+					<a th:href="@{'/admin/competition/' + ${competition.id} + '/update'}">Modifica generalità</a>
+					<a th:href="@{'/admin/competition/' + ${competition.id} + '/match/new'}">Aggiungi match</a>
 					<a th:href="@{'/admin/competition/' + ${competition.id} + '/delete'}">Cancella</a>
 				</li>
 			</ul>

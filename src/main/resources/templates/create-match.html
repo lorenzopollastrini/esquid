@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Creazione match</title>
+</head>
+
+<body>
+	<form th:action="@{'/admin/competition/' + ${competitionId} + '/match'}" method="POST" th:object="${match}">
+		<div>
+			Data ed ora di inizio del match: <input type="datetime-local" th:field="*{dateTime}">
+		</div>
+		<div>
+			Avversario: <input type="text" th:field="*{opponent}">
+		</div>
+		<div>
+			Risultato:
+			<div th:each="result : ${T(it.mantik.esquid.model.MatchResult).values()}">
+				<input id="result-radio-button" type="radio" th:field="*{result}" th:value="${result}">
+				<label th:if="${result == T(it.mantik.esquid.model.MatchResult).VICTORY}"
+				th:text="Vittoria" for="result-radio-button">
+				</label>
+				<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DEFEAT}"
+				th:text="Sconfitta" for="result-radio-button">
+				</label>
+				<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DRAW}"
+				th:text="Pareggio" for="result-radio-button">
+				</label>
+			</div>
+		</div>
+		<div>
+			<button type="submit">Crea</button>
+		</div>
+	</form>
+</body>
+
+</html>

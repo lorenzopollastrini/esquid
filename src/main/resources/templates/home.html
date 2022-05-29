@@ -27,6 +27,16 @@
 				</li>
 			</ul>
 		</section>
+		<section>
+			<h2>Competizioni</h2>
+			<ul>
+				<li th:each="competition : ${competitions}">
+					<a th:href="@{'/competition/' + ${competition.id}}"
+					th:text="${competition.name}">
+					</a>
+				</li>
+			</ul>
+		</section>
 	</main>
 </body>
 

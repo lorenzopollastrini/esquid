@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Modifica competizione</title>
+</head>
+
+<body>
+	<form th:action="@{'/admin/competition/' + ${competition.id} + '/update'}" method="POST" th:object="${competition}">
+		<div>
+			Nome della competizione: <input type="text" th:field="*{name}">
+		</div>
+		<div>
+			Data ed ora di inizio della competizione: <input type="datetime-local" th:field="*{startDateTime}">
+		</div>
+		<div>
+			Data ed ora di fine della competizione: <input type="datetime-local" th:field="*{endDateTime}">
+		</div>
+		<input type="hidden" th:field="*{id}" />
+		<input type="hidden" th:field="*{matches}" />
+		<div>
+			<button type="submit">Salva modifiche</button>
+		</div>
+	</form>
+</body>
+
+</html>

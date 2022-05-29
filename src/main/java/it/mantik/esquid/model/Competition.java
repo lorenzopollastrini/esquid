@@ -1,6 +1,7 @@
 package it.mantik.esquid.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -32,5 +33,9 @@ public class Competition {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime endDateTime;
+	
+	public Competition() {
+		matches = new ArrayList<>();
+	}
 	
 }

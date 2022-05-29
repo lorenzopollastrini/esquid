@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Creazione competizione</title>
+</head>
+
+<body>
+	<form th:action="@{/admin/competition}" method="POST" th:object="${competition}">
+		<div>
+			Nome della competizione: <input type="text" th:field="*{name}">
+		</div>
+		<div>
+			Data ed ora di inizio della competizione: <input type="datetime-local" th:field="*{startDateTime}">
+		</div>
+		<div>
+			Data ed ora di fine della competizione: <input type="datetime-local" th:field="*{endDateTime}">
+		</div>
+		<div>
+			<button type="submit">Crea</button>
+		</div>
+	</form>
+</body>
+
+</html>

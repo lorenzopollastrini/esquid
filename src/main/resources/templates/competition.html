@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Competizione</title>
+</head>
+
+<body>
+	<main>
+		<h1 th:text="${competition.name}"></h1>
+		<section>
+			<h4>Partite</h4>
+			<ul>
+				<li th:each="match : ${competition.matches}">
+					<span th:if="${match.isHomeMatch}" th:text="${'eSquid eSports' + ' - ' + match.opponent}"></span>
+					<span th:if="${!match.isHomeMatch}" th:text="${match.opponent + ' - ' + 'eSquid eSports'}"></span>
+				</li>
+			</ul>
+		</section>
+	</main>
+</body>
+
+</html>

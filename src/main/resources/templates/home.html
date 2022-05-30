@@ -37,6 +37,16 @@
 				</li>
 			</ul>
 		</section>
+		<div th:if="ADMIN == ${currentRole}">
+			<h3>
+				Ritorna alla 
+				<a th:href="@{/admin}">admin home</a>
+			</h3>
+		</div>
+		<h3>
+			Effettua il 
+			<a th:href="@{/logout}">logout</a>
+		</h3>
 	</main>
 </body>
 

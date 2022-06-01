@@ -52,9 +52,10 @@ public class MatchController {
 			competition.addMatch(savedMatch);
 			competitionService.save(competition);
 			
+			return "redirect:/admin";
 		}
 		
-		return "redirect:/admin";
+		return "create-match";
 		
 	}
 	
@@ -74,9 +75,10 @@ public class MatchController {
 		
 		if (!matchBindingResult.hasErrors()) {
 			matchService.save(match);
+			return "redirect:/admin";
 		}
 		
-		return "redirect:/admin";
+		return "update-match";
 		
 	}
 	

@@ -8,7 +8,7 @@
 
 <body>
 	<main>
-		<h1 th:text="${competition.name} + '(Admin)'"></h1>
+		<h1 th:text="${competition.name} + ' (Admin)'"></h1>
 		<section>
 			<h4>Partite</h4>
 			<ul>
@@ -23,6 +23,10 @@
 			</ul>
 		</section>
 	</main>
+		<h3>
+			Ritorna alla 
+			<a th:href="@{/admin}">admin home</a>
+		</h3>
 </body>
 
 </html>

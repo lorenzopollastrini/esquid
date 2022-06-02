@@ -11,9 +11,13 @@
 		<div>
 			Data ed ora di inizio del match: <input type="datetime-local" th:field="*{dateTime}">
 		</div>
+		<span th:if="${#fields.hasErrors('dateTime')}" 
+			  th:errors="*{dateTime}"></span>
 		<div>
 			Avversario: <input type="text" th:field="*{opponent}">
 		</div>
+		<span th:if="${#fields.hasErrors('opponent')}" 
+			  th:errors="*{opponent}"></span>
 		<div>
 			Risultato:
 			<div th:each="result : ${T(it.mantik.esquid.model.MatchResult).values()}">
@@ -29,12 +33,17 @@
 				</label>
 			</div>
 		</div>
+		<span th:if="${#fields.hasErrors('result')}" 
+			  th:errors="*{result}"></span>
 		<input type="hidden" th:field="*{id}" />
 		<input type="hidden" th:field="*{competition}" />
 		<div>
 			<button type="submit">Salva modifiche</button>
 		</div>
 	</form>
+	<h3>
+		<a th:href="@{/admin}">Annulla</a>
+	</h3>
 </body>
 
 </html>

@@ -42,9 +42,10 @@ public class EventController {
 		
 		if (!eventBindingResult.hasErrors()) {
 			eventService.save(event);
+			return "redirect:/admin";
 		}
 		
-		return "redirect:/admin";
+		return "create-event";
 		
 	}
 	
@@ -76,9 +77,10 @@ public class EventController {
 		
 		if (!eventBindingResult.hasErrors()) {
 			eventService.save(event);
+			return "redirect:/admin";
 		}
 		
-		return "redirect:/admin";
+		return "update-event";
 		
 	}
 	

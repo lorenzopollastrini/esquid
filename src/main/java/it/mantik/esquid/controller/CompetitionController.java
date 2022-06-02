@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.mantik.esquid.controller.validator.CompetitionValidator;
 import it.mantik.esquid.model.Competition;
 import it.mantik.esquid.service.CompetitionService;
 
@@ -19,6 +20,9 @@ public class CompetitionController {
 	
 	@Autowired
 	private CompetitionService competitionService;
+	
+	@Autowired
+	private CompetitionValidator competitionValidator;
 	
 	@GetMapping("/admin/competition/new")
 	public String getCreateCompetitionView(Model model) {
@@ -33,11 +37,14 @@ public class CompetitionController {
 	public String createCompetition(@Valid @ModelAttribute("competition") Competition competition,
 			BindingResult competitionBindingResult) {
 		
+		competitionValidator.validate(competition, competitionBindingResult);
+		
 		if (!competitionBindingResult.hasErrors()) {
 			competitionService.save(competition);
+			return "redirect:/admin";
 		}
 		
-		return "redirect:/admin";
+		return "create-competition";
 		
 	}
 	
@@ -79,11 +86,14 @@ public class CompetitionController {
 	public String updateCompetition(@Valid @ModelAttribute("competition") Competition competition,
 			BindingResult competitionBindingResult) {
 		
+		competitionValidator.validate(competition, competitionBindingResult);
+		
 		if (!competitionBindingResult.hasErrors()) {
 			competitionService.save(competition);
+			return "redirect:/admin";
 		}
 		
-		return "redirect:/admin";
+		return "update-competition";
 		
 	}
 	

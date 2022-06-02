@@ -43,6 +43,7 @@ public class MainController {
 		Collection<Competition> competitions = competitionService.findAll();
 		
 		model.addAttribute("currentUser", credentials.getUser());
+		model.addAttribute("currentRole", credentials.getRole());
 		model.addAttribute("events", events);
 		model.addAttribute("competitions", competitions);
 		

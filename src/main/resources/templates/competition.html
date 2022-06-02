@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="UTF-8" />
-	<title>Competizione</title>
-</head>
-
-<body>
-	<main>
-		<h1 th:text="${competition.name}"></h1>
-		<section>
-			<h4>Partite</h4>
-			<ul>
-				<li th:each="match : ${competition.matches}">
-					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).VICTORY}" th:text="Vittoria"></span>
-					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DEFEAT}" th:text="Sconfitta"></span>
-					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DRAW}" th:text="Pareggio"></span>
-					<span th:text="${'vs ' + match.opponent}"></span>
-				</li>
-			</ul>
-		</section>
-	</main>
-		<h3>
-			Ritorna alla 
-			<a th:href="@{/}">home</a>
-		</h3>
-</body>
+	
+	<head th:replace="fragments/base.html :: headFragment(title='Competizione')"></head>
+	
+	<body>
+	
+		<main>
+		
+			<h1 th:text="${competition.name}"></h1>
+			
+			<section>
+				<h4>Partite</h4>
+				<ul>
+					<li th:each="match : ${competition.matches}">
+						<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).VICTORY}" th:text="Vittoria"></span>
+						<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DEFEAT}" th:text="Sconfitta"></span>
+						<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DRAW}" th:text="Pareggio"></span>
+						<span th:text="${'vs ' + match.opponent}"></span>
+					</li>
+				</ul>
+			</section>
+			
+		</main>
+		
+			<h3>
+				Ritorna alla 
+				<a th:href="@{/}">home</a>
+			</h3>
+	
+	</body>
 
 </html>

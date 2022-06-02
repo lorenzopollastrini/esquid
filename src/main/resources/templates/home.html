@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Home</title>
-</head>
+	<head th:replace="fragments/base.html :: headFragment(title='Home')"></head>
 
-<body>
-	<main>
-		<h1>Home</h1>
-		<section>
-			<h2>Eventi</h2>
-			<ul>
-				<li th:each="event : ${events}">
-					<a th:href="@{'/event/' + ${event.id}}"
-					th:text="${event.name}">
-					</a>
-					<a th:if="${!#lists.contains(event.participants, currentUser)}"
-					th:href="@{'/event/' + ${event.id} + '/participate'}">
-						Partecipa
-					</a>
-					<a th:if="${#lists.contains(event.participants, currentUser)}"
-					th:href="@{'/event/' + ${event.id} + '/cancel-participation'}">
-						Annulla partecipazione
-					</a>
-				</li>
-			</ul>
-		</section>
-		<section>
-			<h2>Competizioni</h2>
-			<ul>
-				<li th:each="competition : ${competitions}">
-					<a th:href="@{'/competition/' + ${competition.id}}"
-					th:text="${competition.name}">
-					</a>
-				</li>
-			</ul>
-		</section>
-		<div th:if="ADMIN == ${currentRole}">
+	<body>
+	
+		<main>
+			<h1>Home</h1>
+			
+			<section>
+				<h2>Eventi</h2>
+				<ul>
+					<li th:each="event : ${events}">
+						<a th:href="@{'/event/' + ${event.id}}"
+						th:text="${event.name}">
+						</a>
+						<a th:if="${!#lists.contains(event.participants, currentUser)}"
+						th:href="@{'/event/' + ${event.id} + '/participate'}">
+							Partecipa
+						</a>
+						<a th:if="${#lists.contains(event.participants, currentUser)}"
+						th:href="@{'/event/' + ${event.id} + '/cancel-participation'}">
+							Annulla partecipazione
+						</a>
+					</li>
+				</ul>
+			</section>
+			
+			<section>
+				<h2>Competizioni</h2>
+				<ul>
+					<li th:each="competition : ${competitions}">
+						<a th:href="@{'/competition/' + ${competition.id}}"
+						th:text="${competition.name}">
+						</a>
+					</li>
+				</ul>
+			</section>
+			
+			<div th:if="ADMIN == ${currentRole}">
+				<h3>
+					Ritorna alla 
+					<a th:href="@{/admin}">admin home</a>
+				</h3>
+			</div>
+			
 			<h3>
-				Ritorna alla 
-				<a th:href="@{/admin}">admin home</a>
+				Effettua il 
+				<a th:href="@{/logout}">logout</a>
 			</h3>
-		</div>
-		<h3>
-			Effettua il 
-			<a th:href="@{/logout}">logout</a>
-		</h3>
-	</main>
-</body>
+			
+		</main>
+
+	</body>
 
 </html>

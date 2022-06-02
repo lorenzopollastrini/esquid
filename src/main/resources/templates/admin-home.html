@@ -1,62 +1,61 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="UTF-8" />
-	<title>Admin Home</title>
-</head>
-
-<body>
-	<main>
-		<a th:href="@{/}">Alla User Home</a>
-		<h1>Admin Home</h1>
-		<section th:unless="${#lists.isEmpty(pendingUsers)}">
-			<h2>Utenti in attesa di accettazione</h2>
-			<ul>
-				<li th:each="pendingUser : ${pendingUsers}">
-					<span th:text="${pendingUser.surname + ', ' + pendingUser.name}"></span>
-					<a th:href="@{'/admin/credentials/' + ${pendingUser.credentials.id} + '/enable'}">Accetta</a>
-				</li>
-			</ul>
-		</section>
-		<section>
-			<h2>Utenti membri del team</h2>
-			<ul>
-				<li th:each="member : ${members}">
-					<span th:text="${member.surname + ', ' + member.name}"></span>
-					<a th:href="@{'/admin/credentials/' + ${member.credentials.id} + '/disable'}">Disabilita</a>
-				</li>
-			</ul>
-		</section>
-		<section>
-			<h2>Eventi</h2>
-			<a th:href="@{/admin/event/new}">Crea evento</a>
-			<ul>
-				<li th:each="event : ${events}">
-					<span th:text="${event.name}"></span>
-					<a th:href="@{'/admin/event/' + ${event.id} + '/update'}">Modifica</a>
-					<a th:href="@{'/admin/event/' + ${event.id} + '/delete'}">Annulla</a>
-				</li>
-			</ul>
-		</section>
-		<section>
-			<h2>Competizioni</h2>
-			<a th:href="@{/admin/competition/new}">Crea competizione</a>
-			<ul>
-				<li th:each="competition : ${competitions}">
-					<a th:href="@{'/admin/competition/' + ${competition.id}}" th:text="${competition.name}"></a>
-					<a th:href="@{'/admin/competition/' + ${competition.id} + '/update'}">Modifica generalità</a>
-					<a th:href="@{'/admin/competition/' + ${competition.id} + '/match/new'}">Aggiungi match</a>
-					<a th:href="@{'/admin/competition/' + ${competition.id} + '/delete'}">Cancella</a>
-				</li>
-			</ul>
-		</section>
-		<div>
-			<h3>
-				Effettua il 
-				<a th:href="@{/logout}">logout</a>
-			</h3>
-	</main>
-</body>
+	
+	<head th:replace="fragments/base.html :: headFragment(title='Admin home')"></head>
+	
+	
+	<body>
+	
+		<main>
+			<a th:href="@{/}">Alla User Home</a>
+			<h1>Admin Home</h1>
+			<section th:unless="${#lists.isEmpty(pendingUsers)}">
+				<h2>Utenti in attesa di accettazione</h2>
+				<ul>
+					<li th:each="pendingUser : ${pendingUsers}">
+						<span th:text="${pendingUser.surname + ', ' + pendingUser.name}"></span>
+						<a th:href="@{'/admin/credentials/' + ${pendingUser.credentials.id} + '/enable'}">Accetta</a>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Utenti membri del team</h2>
+				<ul>
+					<li th:each="member : ${members}">
+						<span th:text="${member.surname + ', ' + member.name}"></span>
+						<a th:href="@{'/admin/credentials/' + ${member.credentials.id} + '/disable'}">Disabilita</a>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Eventi</h2>
+				<a th:href="@{/admin/event/new}">Crea evento</a>
+				<ul>
+					<li th:each="event : ${events}">
+						<span th:text="${event.name}"></span>
+						<a th:href="@{'/admin/event/' + ${event.id} + '/update'}">Modifica</a>
+						<a th:href="@{'/admin/event/' + ${event.id} + '/delete'}">Annulla</a>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Competizioni</h2>
+				<a th:href="@{/admin/competition/new}">Crea competizione</a>
+				<ul>
+					<li th:each="competition : ${competitions}">
+						<a th:href="@{'/admin/competition/' + ${competition.id}}" th:text="${competition.name}"></a>
+						<a th:href="@{'/admin/competition/' + ${competition.id} + '/update'}">Modifica generalit&agrave;</a>
+						<a th:href="@{'/admin/competition/' + ${competition.id} + '/match/new'}">Aggiungi match</a>
+						<a th:href="@{'/admin/competition/' + ${competition.id} + '/delete'}">Cancella</a>
+					</li>
+				</ul>
+			</section>
+			<div>
+				<h3>
+					Effettua il
+					<a th:href="@{/logout}">logout</a>
+				</h3>
+		</main>
+	</body>
 
 </html>

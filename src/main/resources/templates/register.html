@@ -1,44 +1,97 @@
 <!DOCTYPE html>
 <html>
 
-	<head th:replace="fragments/base.html :: headFragment(title='Registrati')"></head>
+<head
+	th:replace="fragments/base.html :: headFragment(title='Registrati')"></head>
 
-	<body>
-		<h1>Registrati</h1>
-		
-		<form th:action="@{/register}" method="post">
-			<div>
-				<input type="text" th:field="${credentials.username}" placeholder="Username" />
+<body>
+	<main class="h-100">
+
+	<div class="container mt-5">
+
+		<div class="d-flex justify-content-between bg-white rounded">
+
+			<div class="p-5 flex-fill">
+				<div class="text-center">
+					<h1 class="pt-1 pb-5 pb-">eSquid</h1>
+				</div>
+				<h1>Registrati</h1>
+
+
+				<form th:action="@{/register}" method="post">
+					<div class="form-outline mb-4">
+						<label for="input-username" class="form-label">Username</label> 
+						<input type="text" th:field="${credentials.username}"
+							class="form-control"
+							th:classappend="${#fields.hasErrors('credentials.username') ? 'is-invalid' : ''}"
+							id="input-username" />
+						<div class="invalid-feedback">
+							<span th:if="${#fields.hasErrors('credentials.username')}"
+								th:errors="${credentials.username}"></span>
+						</div>
+					</div>
+
+					<div class="form-outline mb-4">
+						<label for="input-password" class="form-label">Password</label>
+						<input type="password" th:field="${credentials.password}"
+							 class="form-control"
+							 th:classappend="${#fields.hasErrors('credentials.password') ? 'is-invalid' : ''}"
+							 id="input-password" />
+						<div class="invalid-feedback">
+							<span th:if="${#fields.hasErrors('credentials.password')}"
+								th:errors="${credentials.password}"></span>
+						</div>
+					</div>
+					
+					<div class="form-outline mb-4">
+						<label for="input-name" class="form-label">Nome</label>
+						<input type="text" th:field="${user.name}"
+							 class="form-control"
+							 th:classappend="${#fields.hasErrors('user.name') ? 'is-invalid' : ''}"
+							 id="input-name" />
+						<div class="invalid-feedback">
+							<span th:if="${#fields.hasErrors('user.name')}"
+								th:errors="${user.name}"></span>
+						</div>
+					</div>
+					
+					<div class="form-outline mb-4">
+						<label for="input-surname" class="form-label">Cognome</label>
+						<input type="text" th:field="${user.surname}"
+							class="form-control" 
+							th:classappend="${#fields.hasErrors('user.surname') ? 'is-invalid' : ''}"
+							id="input-surname"/>
+						<div class="invalid-feedback">					
+							<span th:if="${#fields.hasErrors('user.surname')}"
+								th:errors="${user.surname}"></span>
+						</div>
+					</div>
+
+					<div class="text-center pt-1 mb-5 pb-1">
+						<button type="submit"
+							class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Registrati</button>
+					</div>
+
+				</form>
+				<div class="d-flex align-items-center justify-content-center pb-4">
+					<div>
+						Hai gi&agrave; un account? <a th:href="@{/login}">Accedi</a>.
+					</div>
+				</div>
 			</div>
-			<span th:if="${#fields.hasErrors('credentials.username')}"
-				  th:errors="${credentials.username}"></span>
-				  
-			<div>
-				<input type="password" th:field="${credentials.password}" placeholder="Password" />
+
+			<div
+				class="p-2 flex-fill col-lg-6 d-flex align-items-center gradient-custom-2">
+				<div class="mx-auto">
+					<img th:src="@{/images/tentacle.png}" style="width: 220px;"
+						alt="logo">
+				</div>
 			</div>
-			<span th:if="${#fields.hasErrors('credentials.password')}"
-				  th:errors="${credentials.password}"></span>
-				  
-			<div>
-				<input type="text" th:field="${user.name}" placeholder="Nome" />
-			</div>
-			<span th:if="${#fields.hasErrors('user.name')}"
-				  th:errors="${user.name}"></span>
-			<div>
-				<input type="text" th:field="${user.surname}" placeholder="Cognome" />
-			</div>
-			<span th:if="${#fields.hasErrors('user.surname')}"
-				  th:errors="${user.surname}"></span>
-				  
-			<div>
-				<input type="submit" value="Registrati" />
-			</div>
-			
-		</form>
-		
-		<span>Hai gi&agrave; un account? <a th:href="@{/login}">Accedi</a>.</span>
-		
-		
-	</body>
+
+		</div>
+	</div>
+
+	</main>
+</body>
 
 </html>

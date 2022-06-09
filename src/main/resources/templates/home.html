@@ -4,52 +4,86 @@
 	<head th:replace="fragments/base.html :: headFragment(title='Home')"></head>
 
 	<body>
-	
+		<header>
+			<div class="navbar navbar-dark bg-dark shadow-sm container-flex">
+	        	<div class="row w-100 p-3" sec:authorize="hasAuthority('ADMIN')">
+						<a th:href="@{/admin}" class="col text-white ml-5 ">
+	          		  		<h5> < Alla admin home</h5>
+	          			</a>
+	            	<div class="col text-white">
+			    		<span class="text-muted float-right mr-5">Effettua il
+							<a th:href="@{/logout}">logout</a>		
+						</span>
+			  		</div>
+	        	</div>
+	      	</div>
+		</header>	
+
 		<main>
-			<h1>Home</h1>
-			
-			<section>
-				<h2>Eventi</h2>
-				<ul>
+			<div class="container">
+    		  <div class="d-flex align-items-center p-3 my-3 text-white gradient-custom-2 rounded shadow-sm">
+        		<img th:src="@{/images/tentacle.png}" class="me-3" alt="" width="48" height="38">
+			  <div class="lh-1">
+          		<h4 th:text="${username}" class="h4 mb-0 text-white lh-1"></h4>
+				<small>Home</small>
+        	</div>
+      	</div>
+			<section th:unless="${#lists.isEmpty(events)}">
+				<div class="container">
+					<div class="my-3 p-3 bg-white rounded shadow-sm">
+			        	<h6 class="pb-2 mb-0">Eventi</h6>
+			            <hr>
+			            	<div class="d-flex text-muted pt-3">
+			            
+				<ul class="w-100">
 					<li th:each="event : ${events}">
+						<div class="pb-3 mb-0 lh-sm row">
+							<div class="col">
 						<a th:href="@{'/event/' + ${event.id}}"
-						th:text="${event.name}">
+						th:text="${event.name}" class="link-purple">
 						</a>
-						<a th:if="${!#lists.contains(event.participants, currentUser)}"
-						th:href="@{'/event/' + ${event.id} + '/participate'}">
-							Partecipa
-						</a>
-						<a th:if="${#lists.contains(event.participants, currentUser)}"
-						th:href="@{'/event/' + ${event.id} + '/cancel-participation'}">
-							Annulla partecipazione
-						</a>
+						</div>
+						<div class="col">
+							<a th:if="${!#lists.contains(event.participants, currentUser)}"
+							th:href="@{'/event/' + ${event.id} + '/participate'}" class="btn btn-primary fa-lg gradient-custom-2 float-right mr-4">
+								Partecipa
+							</a>
+							<a th:if="${#lists.contains(event.participants, currentUser)}"
+							th:href="@{'/event/' + ${event.id} + '/cancel-participation'}" class="btn btn-primary fa-lg gradient-custom-2 float-right mr-4">
+								Annulla partecipazione
+							</a>
+						</div>
+						</div>
 					</li>
 				</ul>
+				</div>
+				</div>
+				</div>
 			</section>
 			
-			<section>
-				<h2>Competizioni</h2>
-				<ul>
+			<section th:unless="${#lists.isEmpty(events)}">
+				<div class="container">
+					<div class="my-3 p-3 bg-white rounded shadow-sm">
+			        	<h6 class="pb-2 mb-0">Competizioni</h6>
+			            <hr>
+			            	<div class="d-flex text-muted pt-3">
+			            	
+				<ul class="w-100">
 					<li th:each="competition : ${competitions}">
+						<div class="pb-3 mb-0 lh-sm row">
+							<div class="col">
 						<a th:href="@{'/competition/' + ${competition.id}}"
-						th:text="${competition.name}">
+						th:text="${competition.name}" class="link-purple">
 						</a>
+						</div>
+						</div>
 					</li>
 				</ul>
+				</div>
+				</div>
+				</div>
 			</section>
-			
-			<div th:if="ADMIN == ${currentRole}">
-				<h3>
-					Ritorna alla 
-					<a th:href="@{/admin}">admin home</a>
-				</h3>
-			</div>
-			
-			<h3>
-				Effettua il 
-				<a th:href="@{/logout}">logout</a>
-			</h3>
-			
+
 		</main>
 
 	</body>

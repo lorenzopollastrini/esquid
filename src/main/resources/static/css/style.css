@@ -1,0 +1,28 @@
+html, body{
+  margin: 0px;
+  height: 100%;
+  background-color: #202124
+}
+
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #5F005F;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, #5F005F, #7033AD);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, #5F005F, #7033AD);
+}
+
+.link-purple {
+color: #A938F0;
+}
+
+}
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+}
+}

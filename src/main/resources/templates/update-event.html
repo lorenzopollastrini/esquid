@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Modifica evento</title>
-</head>
+	<head th:replace="fragments/base.html :: headFragment(title='Modifica evento')"></head>
 
-<body>
-	<form th:action="@{'/admin/event/' + ${event.id} + '/update'}" method="POST" th:object="${event}">
-		<div>
-			Nome dell'evento: <input type="text" th:field="*{name}">
-		</div>
-		<span th:if="${#fields.hasErrors('name')}"
-			  th:errors="*{name}"></span>
-		<div>
-			Data ed ora dell'evento: <input type="datetime-local" th:field="*{dateTime}">
-		</div>
-		<span th:if="${#fields.hasErrors('dateTime')}"
-			  th:errors="*{dateTime}"></span>
-		<input type="hidden" th:field="*{id}" />
-		<input type="hidden" th:field="*{participants}" />
-		<div>
-			<button type="submit">Salva modifiche</button>
-		</div>
-	</form>
-	<h3>
-		<a th:href="@{/admin}">Annulla</a>
-	</h3>
-</body>
+	<body>
+		<form th:action="@{'/admin/event/' + ${event.id} + '/update'}" method="POST" th:object="${event}">
+		
+			<div>
+				Nome dell'evento: <input type="text" th:field="*{name}">
+			</div>
+			<span th:if="${#fields.hasErrors('name')}"
+				  th:errors="*{name}"></span>
+				  
+			<div>
+				Data ed ora dell'evento: <input type="datetime-local" th:field="*{dateTime}">
+			</div>
+			<span th:if="${#fields.hasErrors('dateTime')}"
+				  th:errors="*{dateTime}"></span>
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{participants}" />
+			
+			<div>
+				<button type="submit">Salva modifiche</button>
+			</div>
+			
+		</form>
+		
+		<h3>
+			<a th:href="@{/admin}">Annulla</a>
+		</h3>
+		
+	</body>
 
 </html>

@@ -42,8 +42,8 @@ public class MainController {
 		Collection<Event> events = eventService.findAll();
 		Collection<Competition> competitions = competitionService.findAll();
 		
+		model.addAttribute("username", credentials.getUsername());
 		model.addAttribute("currentUser", credentials.getUser());
-		model.addAttribute("currentRole", credentials.getRole());
 		model.addAttribute("events", events);
 		model.addAttribute("competitions", competitions);
 		
@@ -54,11 +54,14 @@ public class MainController {
 	@GetMapping("/admin")
 	public String adminHome(Model model) {
 		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials credentials = credentialsService.findByUsername(userDetails.getUsername());
 		Collection<User> pendingUsers = userService.findByEnabled(false);
 		Collection<User> members = userService.findByEnabled(true);
 		Collection<Event> events = eventService.findAll();
 		Collection<Competition> competitions = competitionService.findAll();
 		
+		model.addAttribute("username", credentials.getUsername());
 		model.addAttribute("pendingUsers", pendingUsers);
 		model.addAttribute("members", members);
 		model.addAttribute("events", events);

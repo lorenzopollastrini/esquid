@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Modifica competizione</title>
-</head>
+	<head th:replace="fragments/base.html :: headFragment(title='Modifica competizione')"></head>
 
-<body>
-	<form th:action="@{'/admin/competition/' + ${competition.id} + '/update'}" method="POST" th:object="${competition}">
-		<div>
-			Nome della competizione: <input type="text" th:field="*{name}">
-		</div>
-		<span th:if="${#fields.hasErrors('name')}" 
-			  th:errors="*{name}"></span>
-		<div>
-			Data ed ora di inizio della competizione: <input type="datetime-local" th:field="*{startDateTime}">
-		</div>
-		<span th:if="${#fields.hasErrors('startDateTime')}" 
-			  th:errors="*{startDateTime}"></span>
-		<div>
-			Data ed ora di fine della competizione: <input type="datetime-local" th:field="*{endDateTime}">
-		</div>
-		<span th:if="${#fields.hasErrors('endDateTime')}" 
-			  th:errors="*{endDateTime}"></span>
-		<input type="hidden" th:field="*{id}" />
-		<input type="hidden" th:field="*{matches}" />
-		<div>
-			<button type="submit">Salva modifiche</button>
-		</div>
-	</form>
-	<h3>
-		<a th:href="@{/admin}">Annulla</a>
-	</h3>
-</body>
+	<body>
+		<form th:action="@{'/admin/competition/' + ${competition.id} + '/update'}" method="POST" th:object="${competition}">
+		
+			<div>
+				Nome della competizione: <input type="text" th:field="*{name}">
+			</div>
+			<span th:if="${#fields.hasErrors('name')}" 
+				  th:errors="*{name}"></span>
+				  
+			<div>
+				Data ed ora di inizio della competizione: <input type="datetime-local" th:field="*{startDateTime}">
+			</div>
+			<span th:if="${#fields.hasErrors('startDateTime')}" 
+				  th:errors="*{startDateTime}"></span>
+			<div>
+				Data ed ora di fine della competizione: <input type="datetime-local" th:field="*{endDateTime}">
+			</div>
+			<span th:if="${#fields.hasErrors('endDateTime')}" 
+				  th:errors="*{endDateTime}"></span>
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{matches}" />
+			
+			<div>
+				<button type="submit">Salva modifiche</button>
+			</div>
+			
+		</form>
+		
+		<h3>
+			<a th:href="@{/admin}">Annulla</a>
+		</h3>
+		
+	</body>
 
 </html>

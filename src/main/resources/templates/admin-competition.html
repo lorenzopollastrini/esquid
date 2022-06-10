@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="UTF-8" />
-	<title>Competizione (admin)</title>
-</head>
-
-<body>
-	<main>
-		<h1 th:text="${competition.name} + ' (Admin)'"></h1>
-		<section>
-			<h4>Partite</h4>
-			<ul>
-				<li th:each="match : ${competition.matches}">
-					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).VICTORY}" th:text="Vittoria"></span>
-					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DEFEAT}" th:text="Sconfitta"></span>
-					<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DRAW}" th:text="Pareggio"></span>
-					<span th:text="${'vs ' + match.opponent}"></span>
-					<a th:href="'/admin/match/' + ${match.id} + '/update'">Modifica</a>
-					<a th:href="'/admin/match/' + ${match.id} + '/delete'">Cancella</a>
-				</li>
-			</ul>
-		</section>
-	</main>
-		<h3>
-			Ritorna alla 
-			<a th:href="@{/admin}">admin home</a>
-		</h3>
-</body>
+	
+	<head th:replace="fragments/base.html :: headFragment(title='Competizione (admin)')"></head>
+	
+	<body>
+		<main>
+			<h1 th:text="${competition.name} + ' (Admin)'"></h1>
+			<section>
+				<h4>Partite</h4>
+				<ul>
+					<li th:each="match : ${competition.matches}">
+						<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).VICTORY}" th:text="Vittoria"></span>
+						<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DEFEAT}" th:text="Sconfitta"></span>
+						<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DRAW}" th:text="Pareggio"></span>
+						<span th:text="${'vs ' + match.opponent}"></span>
+						<a th:href="'/admin/match/' + ${match.id} + '/update'">Modifica</a>
+						<a th:href="'/admin/match/' + ${match.id} + '/delete'">Cancella</a>
+					</li>
+				</ul>
+			</section>
+		</main>
+			<h3>
+				Ritorna alla 
+				<a th:href="@{/admin}">admin home</a>
+			</h3>
+	</body>
 
 </html>

@@ -1,25 +1,62 @@
 <!DOCTYPE html>
+<html>
 
-<head>
-	<title>Accedi</title>
-</head>
+<head th:replace="fragments/base.html :: headFragment(title='Accedi')"></head>
 
 <body>
-	<h1>Accedi</h1>
-	<div th:if="${param.error}">
-		Credenziali errate.</div>
-	<div th:if="${param.logout}">
-		Hai effettuato il logout.</div>
-	<form th:action="@{/login}" method="post">
-		<div>
-			<input type="text" name="username" placeholder="Username" />
+	<main class="h-100">
+
+	<div class="container mt-5">
+
+		<div class="d-flex justify-content-between bg-white rounded">
+
+			<div class="p-5 flex-fill">
+				<div class="text-center">
+					<h1 class="pt-1 pb-5 pb-">eSquid</h1>
+				</div>
+				<h1>Accedi</h1>
+				<div th:if="${param.error}" class="alert alert-danger" role="alert">Credenziali
+					errate.</div>
+				<div th:if="${param.logout}" class="alert alert-info" role="alert">Hai
+					effettuato il logout.</div>
+
+				<form th:action="@{/login}" method="post">
+					<div class="form-outline mb-4">
+						<input type="text" name="username" placeholder="Username"
+							id="form2Example11" class="form-control" />
+					</div>
+
+					<div class="form-outline mb-4">
+						<input type="password" name="password" placeholder="Password"
+							id="form2Example22" class="form-control" />
+					</div>
+
+					<div class="text-center pt-1 mb-5 pb-1">
+						<button type="submit"
+							class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Accedi</button>
+					</div>
+
+				</form>
+				<div class="d-flex align-items-center justify-content-center pb-4">
+					<p class="mb-0 me-2">
+						Non hai ancora un account? <a th:href="@{/register}">Registrati</a>.</span>
+					</p>
+				</div>
+
+			</div>
+
+			<div
+				class="p-2 flex-fill col-lg-6 d-flex align-items-center gradient-custom-2 rounded-right">
+				<div class="mx-auto">
+					<img th:src="@{/images/tentacle.png}" style="width: 220px;"
+						alt="logo">
+				</div>
+			</div>
 		</div>
-		<div>
-			<input type="password" name="password" placeholder="Password" />
-		</div>
-		<input type="submit" value="Accedi" />
-	</form>
-	<span>Non hai ancora un account? <a th:href="@{/register}">Registrati</a>.</span>
+
+	</div>
+
+	</main>
 </body>
 
 </html>

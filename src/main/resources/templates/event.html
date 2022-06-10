@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
+		
+		<head th:replace="fragments/base.html :: headFragment(title='Evento')"></head>
+		
+	<body>
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Evento</title>
-</head>
+		<main>
+			<h1 th:text="${event.name}"></h1>
 
-<body>
-	<main>
-		<h1 th:text="${event.name}"></h1>
-		<section>
-			<h4>Partecipanti</h4>
-			<ul>
-				<li th:each="participant : ${event.participants}">
-					<span th:text="${participant.surname + ', ' + participant.name}"></span>
-				</li>
-			</ul>
-		</section>
-	</main>
-		<h3>
-			Ritorna alla 
-			<a th:href="@{/}">home</a>
-		</h3>
-</body>
+			<section>
+				<h4>Partecipanti</h4>
+				<ul>
+					<li th:each="participant : ${event.participants}">
+						<span th:text="${participant.surname + ', ' + participant.name}"></span>
+					</li>
+				</ul>
+			</section>
+			
+		</main>
+		
+			<h3>
+				Ritorna alla 
+				<a th:href="@{/}">home</a>
+			</h3>
+			
+	</body>
 
 </html>

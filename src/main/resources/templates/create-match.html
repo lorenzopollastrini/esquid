@@ -1,47 +1,51 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<meta charset="UTF-8" />
-	<title>Creazione match</title>
-</head>
+	<head th:replace="fragments/base.html :: headFragment(title='Creazione match')"></head>
 
-<body>
-	<form th:action="@{'/admin/competition/' + ${competitionId} + '/match'}" method="POST" th:object="${match}">
-		<div>
-			Data ed ora di inizio del match: <input type="datetime-local" th:field="*{dateTime}">
-		</div>
-		<span th:if="${#fields.hasErrors('dateTime')}" 
-			  th:errors="*{dateTime}"></span>
-		<div>
-			Avversario: <input type="text" th:field="*{opponent}">
-		</div>
-		<span th:if="${#fields.hasErrors('opponent')}" 
-			  th:errors="*{opponent}"></span>
-		<div>
-			Risultato:
-			<div th:each="result : ${T(it.mantik.esquid.model.MatchResult).values()}">
-				<input id="result-radio-button" type="radio" th:field="*{result}" th:value="${result}">
-				<label th:if="${result == T(it.mantik.esquid.model.MatchResult).VICTORY}"
-				th:text="Vittoria" for="result-radio-button">
-				</label>
-				<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DEFEAT}"
-				th:text="Sconfitta" for="result-radio-button">
-				</label>
-				<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DRAW}"
-				th:text="Pareggio" for="result-radio-button">
-				</label>
+	<body>
+	
+		<form th:action="@{'/admin/competition/' + ${competitionId} + '/match'}" method="POST" th:object="${match}">
+			<div>
+				Data ed ora di inizio del match: <input type="datetime-local" th:field="*{dateTime}">
 			</div>
-		</div>
-		<span th:if="${#fields.hasErrors('result')}" 
-			  th:errors="*{result}"></span>
-		<div>
-			<button type="submit">Crea</button>
-		</div>
-		<h3>
-			<a th:href="@{/admin}">Annulla</a>
-		</h3>
-	</form>
-</body>
+			<span th:if="${#fields.hasErrors('dateTime')}" 
+				  th:errors="*{dateTime}"></span>
+				  
+			<div>
+				Avversario: <input type="text" th:field="*{opponent}">
+			</div>
+			<span th:if="${#fields.hasErrors('opponent')}" 
+				  th:errors="*{opponent}"></span>
+				  
+			<div>
+				Risultato:
+				<div th:each="result : ${T(it.mantik.esquid.model.MatchResult).values()}">
+					<input id="result-radio-button" type="radio" th:field="*{result}" th:value="${result}">
+					<label th:if="${result == T(it.mantik.esquid.model.MatchResult).VICTORY}"
+					th:text="Vittoria" for="result-radio-button">
+					</label>
+					<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DEFEAT}"
+					th:text="Sconfitta" for="result-radio-button">
+					</label>
+					<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DRAW}"
+					th:text="Pareggio" for="result-radio-button">
+					</label>
+				</div>
+			</div>
+			<span th:if="${#fields.hasErrors('result')}" 
+				  th:errors="*{result}"></span>
+				  
+			<div>
+				<button type="submit">Crea</button>
+			</div>
+			
+		</form>
+		
+			<h3>
+				<a th:href="@{/admin}">Annulla</a>
+			</h3>
+			
+	</body>
 
 </html>

@@ -3,6 +3,8 @@ package it.mantik.esquid.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +70,11 @@ public class AuthenticationController {
 	}
 	
 	@GetMapping("/default")
-	public String defaultAfterLogin(Model model) {
+	public String defaultAfterLogin(Authentication authentication, Model model) {
+		
+		if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+			return "redirect:/admin";
+		}
 		
 		return "redirect:/";
 		

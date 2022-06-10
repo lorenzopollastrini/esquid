@@ -29,8 +29,10 @@ public class MatchController {
 	public String getCreateMatchView(@PathVariable("competitionId") Long competitionId,
 			Model model) {
 		
+		Competition competition = competitionService.findById(competitionId);
+		
 		model.addAttribute("match", new Match());
-		model.addAttribute("competitionId", competitionId);
+		model.addAttribute("competition", competition);
 		
 		return "create-match";
 		
@@ -86,10 +88,6 @@ public class MatchController {
 	public String deleteMatch(@PathVariable("matchId") Long matchId) {
 		
 		Match match = matchService.findById(matchId);
-		Competition competition = match.getCompetition();
-		
-		competition.removeMatch(match);
-		competitionService.save(competition);
 		
 		matchService.delete(match);
 		

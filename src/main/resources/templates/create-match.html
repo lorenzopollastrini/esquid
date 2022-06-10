@@ -5,7 +5,7 @@
 
 	<body>
 	
-		<form th:action="@{'/admin/competition/' + ${competitionId} + '/match'}" method="POST" th:object="${match}">
+		<form th:action="@{'/admin/competition/' + ${competition.id} + '/match'}" method="POST" th:object="${match}">
 			<div>
 				Data ed ora di inizio del match: <input type="datetime-local" th:field="*{dateTime}">
 			</div>

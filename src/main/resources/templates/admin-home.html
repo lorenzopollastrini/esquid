@@ -26,7 +26,7 @@
       <div class="d-flex align-items-center p-3 my-3 text-white gradient-custom-2 rounded shadow-sm">
         <img th:src="@{/images/tentacle.png}" class="me-3" alt="" width="48" height="38">
         <div class="lh-1">
-          <h4 th:text="${username}" class="h4 mb-0 text-white lh-1"></h4>
+          <h4 sec:authentication="name" class="h4 mb-0 text-white lh-1"></h4>
           <small>Admin home</small>
         </div>
       </div>
@@ -46,13 +46,23 @@
                     	<strong th:text="${pendingUser.surname + ', ' + pendingUser.name}"  class="text-gray-dark"></strong>
                     </div>
                     <div class="col">
-                    	<a th:href="@{'/admin/credentials/' + ${pendingUser.credentials.id} + '/enable'}" class="btn btn-primary fa-lg gradient-custom-2 float-right mr-4">Accetta</a>
+                    	<a th:href="@{'/admin/user/' + ${pendingUser.id} + '/enable'}" class="btn btn-primary fa-lg gradient-custom-2 float-right mr-4">Accetta</a>
                   	</div>
                   </div>
                 </li>
                 <hr>
               </ul>
             </div>
+            
+            <!--
+			<h2>Utenti membri del team</h2>
+			<ul>
+				<li th:each="member : ${members}">
+					<span th:text="${member.surname + ', ' + member.name}"></span>
+					<a th:href="@{'/admin/user/' + ${member.id} + '/disable'}">Disabilita</a>
+				</li>
+			</ul>
+			-->
 
           </div>
 

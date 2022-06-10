@@ -14,7 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import it.mantik.esquid.service.CustomOidcUserService;;
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +24,9 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	DataSource datasource;
+	
+	@Autowired
+    private CustomOidcUserService customOidcUserService;
 
 	/**
 	 * Provides the authorization and authentication configurations
@@ -29,24 +34,29 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.authorizeRequests() // Authorization paragraph
-			.antMatchers(HttpMethod.GET, "/login", "/register", "/css/**", "/images/**").permitAll()
-			.antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
-			.antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
-			.antMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
-			.anyRequest().authenticated()
+		http.authorizeRequests(t -> t	// Authorization paragraph
+				.antMatchers(HttpMethod.GET, "/login", "/register", "/css/**", "/images/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+				.antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
+				.antMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority(ADMIN_ROLE)
+				.anyRequest().authenticated()
+				)
 			
-			.and().formLogin() // Login paragraph
-			.loginPage("/login")
-			.defaultSuccessUrl("/default", true)
+			.formLogin(t -> t			// Login paragraph
+					.loginPage("/login")
+					.defaultSuccessUrl("/default", true))
 			
-			.and().logout() // Logout paragraph
-			.logoutUrl("/logout")
-			.logoutSuccessUrl("/login?logout")
-			.invalidateHttpSession(true)
-			.deleteCookies("JSESSIONID")
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.clearAuthentication(true).permitAll();
+			.oauth2Login(t -> t
+					.loginPage("/login")
+					.userInfoEndpoint().oidcUserService(customOidcUserService))
+			
+			.logout(t -> t				// Logout paragraph
+					.logoutUrl("/logout")
+					.logoutSuccessUrl("/login?logout")
+					.invalidateHttpSession(true)
+					.deleteCookies("JSESSIONID")
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+					.clearAuthentication(true).permitAll());
 		 	
 	}
 	
@@ -59,7 +69,7 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 		auth.jdbcAuthentication()
 			.dataSource(datasource)
 			.authoritiesByUsernameQuery("SELECT username, role FROM credentials WHERE username = ?")
-			.usersByUsernameQuery("SELECT username, password, enabled FROM credentials WHERE username = ? AND enabled = 'true'");
+			.usersByUsernameQuery("SELECT username, password, enabled FROM credentials JOIN users ON credentials.id = users.credentials_id WHERE username = ? AND enabled = 'true'");
 		
 	}
 	

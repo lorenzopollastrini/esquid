@@ -37,11 +37,8 @@ public class Credentials {
 	@Column(nullable = false)
 	private String role;
 	
-	private boolean enabled;
-	
 	public Credentials() {
 		role = DEFAULT_ROLE;
-		enabled = false;
 	}
 	
 }

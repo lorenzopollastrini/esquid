@@ -1,6 +1,7 @@
 package it.mantik.esquid.service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -21,8 +22,18 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
-	public User findById(String id) {
+	public User findById(Long id) {
 		return userRepository.findById(id).get();
+	}
+	
+	public User findByoAuthUniqueIdentifier(String oAuthUniqueIdentifier) {
+		Optional<User> user = userRepository.findByoAuthUniqueIdentifier(oAuthUniqueIdentifier);
+		
+		if (user.isPresent()) {
+			return user.get();
+		}
+		
+		return null;
 	}
 	
 	public Collection<User> findByEnabled(boolean enabled) {

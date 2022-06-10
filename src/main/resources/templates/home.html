@@ -24,7 +24,7 @@
     		  <div class="d-flex align-items-center p-3 my-3 text-white gradient-custom-2 rounded shadow-sm">
         		<img th:src="@{/images/tentacle.png}" class="me-3" alt="" width="48" height="38">
 			  <div class="lh-1">
-          		<h4 th:text="${username}" class="h4 mb-0 text-white lh-1"></h4>
+          		<h4 sec:authentication="name" class="h4 mb-0 text-white lh-1"></h4>
 				<small>Home</small>
         	</div>
       	</div>

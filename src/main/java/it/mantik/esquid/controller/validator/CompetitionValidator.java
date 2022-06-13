@@ -22,11 +22,12 @@ public class CompetitionValidator implements Validator {
 		LocalDateTime endDateTime = competition.getEndDateTime();
 		LocalDateTime startDateTime = competition.getStartDateTime();
 		
-		if(endDateTime.isBefore(startDateTime)) { 
-			errors.rejectValue("endDateTime", "consistentDate");
+		if(endDateTime != null && startDateTime != null) {
+			if(endDateTime.isBefore(startDateTime)) { 
+				errors.rejectValue("endDateTime", "consistentDate");
+			}	
 		}
-		
+	
 	}
-
 	
 }

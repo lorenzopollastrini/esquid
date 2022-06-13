@@ -31,27 +31,29 @@
 							id="form2Example22" class="form-control" />
 					</div>
 
-					<div class="text-center pt-1 mb-5 pb-1">
+					<div class="d-grid pt-1 mb-5 pb-1">
 						<button type="submit"
-							class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Accedi</button>
+							class="btn text-white fa-lg gradient-custom-2 mb-3">Accedi</button>
 					</div>
 
 				</form>
 				<div class="d-flex align-items-center justify-content-center pb-4">
 					<p class="mb-0 me-2">
-						Non hai ancora un account? <a th:href="@{/register}">Registrati</a>.</span>
+						Non hai ancora un account? <a th:href="@{/register}" class="link-purple">Registrati</a>.</span>
 					</p>
 				</div>
 				<hr>
-				<a class="btn btn-primary" th:href="@{/oauth2/authorization/google}">
-					<!-- <i class="bi bi-google"></i> -->
-					Accedi con Google
-				</a>	
+				<div class="d-grid">
+					<a class="btn text-white gradient-custom-2"
+						th:href="@{/oauth2/authorization/google}">
+						<i class="bi bi-google"></i> Accedi con Google
+					</a>
+				</div>
 
 			</div>
 
 			<div
-				class="p-2 flex-fill col-lg-6 d-flex align-items-center gradient-custom-2 rounded-right">
+				class="w-50  d-flex align-items-center gradient-custom-2 rounded-end">
 				<div class="mx-auto">
 					<img th:src="@{/images/tentacle.png}" style="width: 220px;"
 						alt="logo">

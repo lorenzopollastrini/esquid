@@ -2,7 +2,7 @@
 <html>
 
 <head
-	th:replace="fragments/base.html :: headFragment(title='Registrati')"></head>
+	th:replace="fragments/base.html :: head(title='Registrati')"></head>
 
 <body>
 	<main class="h-100">
@@ -92,6 +92,8 @@
 	</div>
 
 	</main>
+	
+	<div th:replace="fragments/base.html :: scripts"></div>
 </body>
 
 </html>

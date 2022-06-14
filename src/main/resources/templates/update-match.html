@@ -2,22 +2,11 @@
 <html>
 
 <head
-	th:replace="fragments/base.html :: headFragment(title='Modifica match')"></head>
+	th:replace="fragments/base.html :: head(title='Modifica match')"></head>
 
 <body>
 
-	<header class="container container-custom my-3 p-3 gradient-custom-2 text-white rounded shadow-sm">
-		<div class="d-flex justify-content-between align-items-center">
-			<div class="d-flex">
-				<img th:src="@{/images/tentacle.png}" class="me-3" width="48" height="38">
-				<div class="lh-1">
-					<h4 sec:authentication="name" class="h4 mb-0 text-white lh-1"></h4>
-					<small>Home</small>
-				</div>
-			</div>
-			<a th:href="@{/logout}">Effettua il logout</a>
-		</div>
-	</header>
+	<header th:replace="fragments/base.html :: header(pageTitle='Modifica match')"></header>
 
 	<main>
 
@@ -93,7 +82,7 @@
 
 	</main>
 
-	<div>th:replace="fragments/base.html :: scriptFragment"></div>
+	<div th:replace="fragments/base.html :: scripts"></div>
 
 </body>
 

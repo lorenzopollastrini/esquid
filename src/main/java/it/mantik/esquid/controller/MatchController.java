@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.mantik.esquid.model.Competition;
 import it.mantik.esquid.model.Match;
@@ -41,7 +42,8 @@ public class MatchController {
 	@PostMapping("/admin/competition/{competitionId}/match")
 	public String createMatch(@Valid @ModelAttribute("match") Match match,
 			BindingResult matchBindingResult,
-			@PathVariable("competitionId") Long competitionId) {
+			@PathVariable("competitionId") Long competitionId,
+			RedirectAttributes redirectAttributes) {
 		
 		if (!matchBindingResult.hasErrors()) {
 			
@@ -54,7 +56,9 @@ public class MatchController {
 			competition.addMatch(savedMatch);
 			competitionService.save(competition);
 			
-			return "redirect:/admin";
+			redirectAttributes.addFlashAttribute("successFlashMessages", "Match aggiunto con successo");
+			
+			return "redirect:/competition/" + competitionId;
 		}
 		
 		return "create-match";
@@ -73,11 +77,13 @@ public class MatchController {
 	
 	@PostMapping("/admin/match/{matchId}/update")
 	public String updateMatch(@Valid @ModelAttribute("match") Match match,
-			BindingResult matchBindingResult) {
+			BindingResult matchBindingResult,
+			RedirectAttributes redirectAttributes) {
 		
 		if (!matchBindingResult.hasErrors()) {
 			matchService.save(match);
-			return "redirect:/admin";
+			redirectAttributes.addFlashAttribute("successFlashMessages", "Match modificato con successo");
+			return "redirect:/competition/" + match.getCompetition().getId();
 		}
 		
 		return "update-match";
@@ -85,13 +91,16 @@ public class MatchController {
 	}
 	
 	@GetMapping("/admin/match/{matchId}/delete")
-	public String deleteMatch(@PathVariable("matchId") Long matchId) {
+	public String deleteMatch(@PathVariable("matchId") Long matchId,
+			RedirectAttributes redirectAttributes) {
 		
 		Match match = matchService.findById(matchId);
 		
 		matchService.delete(match);
 		
-		return "redirect:/admin";
+		redirectAttributes.addFlashAttribute("successFlashMessages", "Match cancellato con successo");
+		
+		return "redirect:/competition/" + match.getCompetition().getId();
 		
 	}
 

@@ -1,23 +1,16 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="fragments/base.html :: headFragment(title='Home')"></head>
+<head th:replace="fragments/base.html :: head(title='eSquid - Home')"></head>
 
 <body>
-	<header class="container container-custom my-3 p-3 gradient-custom-2 text-white rounded shadow-sm">
-		<div class="d-flex justify-content-between align-items-center">
-			<div class="d-flex">
-				<img th:src="@{/images/tentacle.png}" class="me-3" width="48" height="38">
-				<div class="lh-1">
-					<h4 sec:authentication="name" class="h4 mb-0 text-white lh-1"></h4>
-					<small>Home</small>
-				</div>
-			</div>
-			<a th:href="@{/logout}">Effettua il logout</a>
-		</div>
-	</header>
+
+	<header th:replace="fragments/base.html :: header(pageTitle='eSquid - Home')"></header>
 
 	<main class="container container-custom">
+	
+		<div th:each="message : ${successFlashMessages}" th:text="${message}" class="alert alert-success" role="alert">
+		</div>
 
 		<section sec:authorize="hasAuthority('ADMIN')" th:unless="${#lists.isEmpty(pendingUsers)}"
 			class="my-3 p-3 bg-white rounded shadow-sm">
@@ -38,7 +31,6 @@
 								class="btn text-white gradient-custom-2 mr-4">Accetta</a>
 						</div>
 					</li>
-					<hr>
 				</ul>
 			</div>
 
@@ -158,7 +150,8 @@
 		</section>
 	</main>
 
-	<div th:replace="fragments/base.html :: scriptFragment"></div>
+	<div th:replace="fragments/base.html :: scripts"></div>
+	
 </body>
 
 </html>

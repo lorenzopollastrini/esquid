@@ -2,23 +2,11 @@
 <html>
 
 <head
-	th:replace="fragments/base.html :: headFragment(title='Creazione evento')"></head>
+	th:replace="fragments/base.html :: head(title='Crea evento')"></head>
 
 <body>
 
-	<header class="container container-custom my-3 p-3 gradient-custom-2 text-white rounded shadow-sm">
-		<div class="d-flex justify-content-between align-items-center">
-			<a th:href="@{/}" class="text-white ml-5 ">
-				<h5>< Home</h5>
-			</a>
-			<div class="text-white">
-				<span class="text-muted mr-5">Effettua il <a
-					th:href="@{/logout}">logout</a>
-
-				</span>
-			</div>
-		</div>
-	</header>
+	<header th:replace="fragments/base.html :: header(pageTitle='Crea evento')"></header>
 
 	<main>
 
@@ -74,7 +62,7 @@
 
 	</main>
 
-	<div>th:replace="fragments/base.html :: scriptFragment"></div>
+	<div th:replace="fragments/base.html :: scripts"></div>
 </body>
 
 </html>

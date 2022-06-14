@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.mantik.esquid.model.User;
 import it.mantik.esquid.service.UserService;
@@ -15,7 +16,8 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping("/admin/user/{userId}/enable")
-	public String enableUser(@PathVariable("userId") Long userId) {
+	public String enableUser(@PathVariable("userId") Long userId,
+			RedirectAttributes redirectAttributes) {
 		
 		User user = userService.findById(userId);
 		
@@ -23,12 +25,15 @@ public class UserController {
 		
 		userService.save(user);
 		
-		return "redirect:/admin";
+		redirectAttributes.addFlashAttribute("successFlashMessages", "Utente abilitato");
+		
+		return "redirect:/";
 		
 	}
 	
 	@GetMapping("/admin/user/{userId}/disable")
-	public String disableUser(@PathVariable("userId") Long userId) {
+	public String disableUser(@PathVariable("userId") Long userId,
+			RedirectAttributes redirectAttributes) {
 		
 		User user = userService.findById(userId);
 		
@@ -36,11 +41,13 @@ public class UserController {
 		
 		userService.save(user);
 		
+		redirectAttributes.addFlashAttribute("successFlashMessages", "Utente disabilitato");
+		
 		/* TODO: remove the associated user from events etc.;
 		 * logout the associated user;
 		 */
 		
-		return "redirect:/admin";
+		return "redirect:/";
 		
 	}
 

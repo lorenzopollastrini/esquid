@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="fragments/base.html :: headFragment(title='Accedi')"></head>
+<head th:replace="fragments/base.html :: head(title='Accedi')"></head>
 
 <body>
 	<main class="h-100">
@@ -16,9 +16,9 @@
 				</div>
 				<h1>Accedi</h1>
 				<div th:if="${param.error}" class="alert alert-danger" role="alert">Credenziali
-					errate.</div>
-				<div th:if="${param.logout}" class="alert alert-info" role="alert">Hai
-					effettuato il logout.</div>
+					errate</div>
+				<div th:if="${param.logout}" class="alert alert-success" role="alert">Hai
+					effettuato il logout</div>
 
 				<form th:action="@{/login}" method="post">
 					<div class="form-outline mb-4">
@@ -64,6 +64,8 @@
 	</div>
 
 	</main>
+	
+	<div th:replace="fragments/base.html :: scripts"></div>
 </body>
 
 </html>

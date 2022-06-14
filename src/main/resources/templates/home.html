@@ -4,89 +4,161 @@
 <head th:replace="fragments/base.html :: headFragment(title='Home')"></head>
 
 <body>
-	<header>
-		<div class="container navbar navbar-dark bg-dark shadow-sm">
-			<div
-				class="d-flex justify-content-between align-items-center w-100 p-3">
-				<a th:href="@{/admin}" class="text-white ml-5" sec:authorize="hasAuthority('ADMIN')">
-					<h5>< Alla admin home</h5>
-				</a>
-				<div class="text-white">
-					<span class="text-muted mr-5">Effettua il <a
-						th:href="@{/logout}">logout</a>
-					</span>
+	<header class="container container-custom my-3 p-3 gradient-custom-2 text-white rounded shadow-sm">
+		<div class="d-flex justify-content-between align-items-center">
+			<div class="d-flex">
+				<img th:src="@{/images/tentacle.png}" class="me-3" width="48" height="38">
+				<div class="lh-1">
+					<h4 sec:authentication="name" class="h4 mb-0 text-white lh-1"></h4>
+					<small>Home</small>
 				</div>
 			</div>
+			<a th:href="@{/logout}">Effettua il logout</a>
 		</div>
 	</header>
 
-	<main>
-	<div class="container">
-		<div class="d-flex align-items-center p-3 my-3 text-white gradient-custom-2 rounded shadow-sm">
-			<img th:src="@{/images/tentacle.png}" class="me-3" width="48"
-				height="38">
-			<div class="lh-1">
-				<h4 sec:authentication="name" class="h4 mb-0 text-white lh-1"></h4>
-				<small>Home</small>
+	<main class="container container-custom">
+
+		<section sec:authorize="hasAuthority('ADMIN')" th:unless="${#lists.isEmpty(pendingUsers)}"
+			class="my-3 p-3 bg-white rounded shadow-sm">
+
+			<h6 class="pb-2 mb-0">Utenti in attesa di accettazione</h6>
+			<hr>
+			<div class="text-muted pt-3">
+
+				<ul class="list-group">
+					<li th:each="pendingUser : ${pendingUsers}"
+						class="list-group-item d-flex justify-content-between align-items-center">
+						<div>
+							<strong th:text="${pendingUser.name + ' ' + pendingUser.surname}"
+								class="text-gray-dark"></strong>
+						</div>
+						<div>
+							<a th:href="@{'/admin/user/' + ${pendingUser.id} + '/enable'}"
+								class="btn text-white gradient-custom-2 mr-4">Accetta</a>
+						</div>
+					</li>
+					<hr>
+				</ul>
 			</div>
-		</div>
-	</div>
-	<section th:unless="${#lists.isEmpty(events)}">
-		<div class="container">
-			<div class="my-3 p-3 bg-white rounded shadow-sm">
-				<h6 class="pb-2 mb-0">Eventi</h6>
-				<hr>
-				<div class="text-muted pt-3">
 
-					<ul class="list-group">
-						<li th:each="event : ${events}"
-							class="list-group-item d-flex justify-content-between align-items-center">
-							<div class="pb-3 mb-0 lh-sm">
-								<a th:href="@{'/event/' + ${event.id}}" th:text="${event.name}"
-									class="link-purple"> </a>
-							</div>
-							<div>
-								<a th:if="${!#lists.contains(event.participants, currentUser)}"
-									th:href="@{'/event/' + ${event.id} + '/participate'}"
-									class="btn btn-primary fa-lg gradient-custom-2 float-right mr-4">
-									Partecipa </a> 
-								<a th:if="${#lists.contains(event.participants, currentUser)}"
-									th:href="@{'/event/' + ${event.id} + '/cancel-participation'}"
-									class="btn btn-primary fa-lg gradient-custom-2 float-right mr-4">
-									Annulla partecipazione </a>
-							</div>
-						</li>
-					</ul>
-				</div>
+		</section>
 
+		<section th:unless="${#lists.isEmpty(members)}" class="my-3 p-3 bg-white rounded shadow-sm">
+
+			<h6 class="pb-2 mb-0">Membri del team</h6>
+			<hr>
+			<div class="text-muted pt-3">
+
+				<ul class="list-group">
+					<li th:each="member : ${members}"
+						class="list-group-item d-flex justify-content-between align-items-center">
+						<div>
+							<strong th:text="${member.name + ' ' + member.surname}" class="text-gray-dark"></strong>
+						</div>
+						<div sec:authorize="hasAuthority('ADMIN')">
+							<a th:href="@{'/admin/user/' + ${member.id} + '/disable'}"
+								class="btn text-white gradient-custom-2 float-right mr-4">Disabilita</a>
+
+						</div>
+					</li>
+				</ul>
 			</div>
-		</div>
-	</section>
 
+		</section>
 
-	<section th:unless="${#lists.isEmpty(events)}">
-		<div class="container">
-			<div class="my-3 p-3 bg-white rounded shadow-sm">
-				<h6 class="pb-2 mb-0">Competizioni</h6>
-				<hr>
-				<div class="text-muted pt-3">
+		<section th:unless="${#lists.isEmpty(events)}" class="my-3 p-3 bg-white rounded shadow-sm">
 
-					<ul class="list-group">
-						<li th:each="competition : ${competitions}"
-							class="list-group-item d-flex justify-content-between align-items-center">
-							<div class="pb-3 mb-0 lh-sm">
-								<a th:href="@{'/competition/' + ${competition.id}}"
-									th:text="${competition.name}" class="link-purple"> </a>
-							</div>
-						</li>
-					</ul>
-				</div>
+			<h6 class="pb-2 mb-0">Eventi</h6>
+			<hr>
+			<div class="text-muted pt-3">
 
+				<ul class="list-group">
+					<li th:each="event : ${events}"
+						class="list-group-item d-flex justify-content-between align-items-center">
+						<div>
+							<a th:href="@{'/event/' + ${event.id}}" th:text="${event.name}" class="link-purple">
+							</a>
+						</div>
+
+						<div class="dropdown dropdown-custom">
+							<button class="dropdown-button" type="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<i class="bi bi-three-dots"></i>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a th:if="${!#lists.contains(event.participants, currentUser)}"
+										th:href="@{'/event/' + ${event.id} + '/participate'}" class="dropdown-item">
+										Partecipa </a>
+									<a th:if="${#lists.contains(event.participants, currentUser)}"
+										th:href="@{'/event/' + ${event.id} + '/cancel-participation'}"
+										class="dropdown-item">
+										Annulla partecipazione </a>
+								</li>
+								<th:block sec:authorize="hasAuthority('ADMIN')">
+									<li>
+										<hr class="dropdown-divider">
+									</li>
+									<li>
+										<a th:href="@{'/admin/event/' + ${event.id} + '/update'}"
+											class="dropdown-item">Modifica</a>
+									</li>
+									<li>
+										<a th:href="@{'/admin/event/' + ${event.id} + '/delete'}"
+											class="dropdown-item">Annulla</a>
+									</li>
+								</th:block>
+							</ul>
+						</div>
+					</li>
+				</ul>
 			</div>
-		</div>
-	</section>
+
+		</section>
+
+
+		<section th:unless="${#lists.isEmpty(events)}" class="my-3 p-3 bg-white rounded shadow-sm">
+
+			<h6 class="pb-2 mb-0">Competizioni</h6>
+			<hr>
+			<div class="text-muted pt-3">
+
+				<ul class="list-group">
+					<li th:each="competition : ${competitions}"
+						class="list-group-item d-flex justify-content-between align-items-center">
+						<div>
+							<a th:href="@{'/competition/' + ${competition.id}}" th:text="${competition.name}"
+								class="link-purple"> </a>
+						</div>
+						<div sec:authorize="hasAuthority('ADMIN')" class="dropdown dropdown-custom">
+							<button class="dropdown-button" type="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								<i class="bi bi-three-dots"></i>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a th:href="@{'/admin/competition/' + ${competition.id} + '/match/new'}"
+										class="dropdown-item">Aggiungi match</a>
+								</li>
+								<li>
+									<a th:href="@{'/admin/competition/' + ${competition.id} + '/update'}"
+										class="dropdown-item">Modifica generalità</a>
+								</li>
+								<li>
+									<a th:href="@{'/admin/competition/' + ${competition.id} + '/delete'}"
+										class="dropdown-item">Cancella</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		</section>
 	</main>
 
+	<div th:replace="fragments/base.html :: scriptFragment"></div>
 </body>
 
 </html>

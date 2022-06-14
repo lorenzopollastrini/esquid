@@ -5,52 +5,79 @@
 
 <body>
 
-	<header>
-		<div class="container navbar navbar-dark bg-dark shadow-sm">
-			<div
-				class="d-flex justify-content-between align-items-center w-100 p-3">
-				<a th:href="@{/}" class="text-white ml-5 ">
-					<h5>< Alla user home</h5>
-				</a>
-				<div class="text-white">
-					<span class="text-muted mr-5">Effettua il <a
-						th:href="@{/logout}">logout</a>
+	<header class="container container-custom my-3 p-3 gradient-custom-2 text-white rounded shadow-sm">
+		<div class="d-flex justify-content-between align-items-center">
+			<a th:href="@{/}" class="text-white ml-5 ">
+				<h5>< Home</h5>
+			</a>
+			<div class="text-white">
+				<span class="text-muted mr-5">Effettua il <a
+					th:href="@{/logout}">logout</a>
 
-					</span>
-				</div>
+				</span>
 			</div>
 		</div>
 	</header>
 
-	<main>
+	<main class="container container-custom">
 	
-	<section>
-	
-		<div class="container pb-4">
-			<div class="my-3 p-3 bg-white rounded shadow-sm">
-				<h6 th:text="${event.name}" class="pb-2 mb-0"></h6>
-				<hr>
-				<h6>Partecipanti</h6>
-
-				<div class="text-muted pt-2">
-
-					<ul class="list-group">
-						<li th:each="participant : ${event.participants}"
-						
-							class="list-group-item d-flex justify-content-between align-items-center"><span
-							th:text="${participant.surname + ', ' + participant.name}"></span>
-						
+		<section class="my-3 p-3 bg-white rounded shadow-sm">
+			<div class="position-relative">
+				<div class="dropdown dropdown-custom position-absolute top-0 end-0 ">
+					<button class="dropdown-button" type="button" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						<i class="bi bi-three-dots"></i>
+					</button>
+					<ul class="dropdown-menu">
+						<li>
+							<a th:if="${!#lists.contains(event.participants, currentUser)}"
+								th:href="@{'/event/' + ${event.id} + '/participate'}"
+								class="dropdown-item">
+								Partecipa </a>
+							<a th:if="${#lists.contains(event.participants, currentUser)}"
+								th:href="@{'/event/' + ${event.id} + '/cancel-participation'}"
+								class="dropdown-item">
+								Annulla partecipazione </a>
 						</li>
+						<th:block sec:authorize="hasAuthority('ADMIN')">
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li>
+								<a th:href="@{'/admin/event/' + ${event.id} + '/update'}"
+									class="dropdown-item">Modifica</a>
+							</li>
+							<li>
+								<a th:href="@{'/admin/event/' + ${event.id} + '/delete'}"
+									class="dropdown-item">Annulla</a>
+							</li>
+						</th:block>
 					</ul>
-					
 				</div>
-			</div>
-		</div>
+			</div>		
 		
-	</section>
+			<h6 th:text="${event.name}" class="pb-2 mb-0"></h6>
+			<hr>
+			<h6>Partecipanti</h6>
+
+			<div class="text-muted pt-2">
+
+				<ul class="list-group">
+					<li th:each="participant : ${event.participants}"
+					
+						class="list-group-item d-flex justify-content-between align-items-center"><span
+						th:text="${participant.surname + ', ' + participant.name}"></span>
+					
+					</li>
+				</ul>
+				
+			</div>
+			
+		</section>
 	
 	</main>
 
+	<div th:replace="fragments/base.html :: scriptFragment"></div>
 </body>
 
 </html>

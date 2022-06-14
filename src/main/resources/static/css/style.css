@@ -1,28 +1,86 @@
+:root {
+	--primary-color: #A938F0;
+	--secondary-color: #7033AD;
+	--tertiary-color: #5F005F;
+	--background-color: #202124;
+}
+
 html, body{
-  margin: 0px;
-  height: 100%;
-  background-color: #202124
+	margin: 0px;
+	height: 100%;
+	background-color: var(--background-color);
+}
+
+@media (min-width: 576px) {
+  .container-custom {
+    max-width: 650px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-custom {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-custom {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-custom {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container-custom {
+    max-width: 1000px;
+  }
 }
 
 .gradient-custom-2 {
-/* fallback for old browsers */
-background: #5F005F;
-
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, #5F005F, #7033AD);
-
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, #5F005F, #7033AD);
+	/* fallback for old browsers */
+	background: var(--tertiary-color);
+	
+	/* Chrome 10-25, Safari 5.1-6 */
+	background: -webkit-linear-gradient(to right, var(--tertiary-color), var(--secondary-color));
+	
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: linear-gradient(to right, var(--tertiary-color), var(--secondary-color));
 }
 
 .link-purple {
-color: #A938F0;
+	text-decoration: none;
+	color: var(--primary-color);
 }
 
-}
 @media (min-width: 769px) {
-.gradient-custom-2 {
-border-top-right-radius: .3rem;
-border-bottom-right-radius: .3rem;
+	.gradient-custom-2 {
+	border-top-right-radius: .3rem;
+	border-bottom-right-radius: .3rem;
+	}
 }
+
+.dropdown-custom .dropdown-button {
+	border-radius: 5px;
+	font-size: 1.5rem;
+	line-height: 1rem;
+	color: var(--secondary-color);
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.dropdown-custom .dropdown-button:hover {
+	background-color: lightgrey;
+}
+
+.dropdown-custom .dropdown-button:focus {
+	background-color: lightgrey;
+}
+
+.dropdown-custom .dropdown-item:active {
+	background-color: var(--secondary-color);
 }

@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.mantik.esquid.controller.validator.CredentialsValidator;
 import it.mantik.esquid.model.Credentials;
@@ -43,7 +44,8 @@ public class AuthenticationController {
 			BindingResult userBindingResult,
 			@Valid @ModelAttribute("credentials") Credentials credentials,
 			BindingResult credentialsBindingResult,
-			Model model) {
+			Model model,
+			RedirectAttributes redirectAttributes) {
 		
 		credentialsValidator.validate(credentials, credentialsBindingResult);
 				
@@ -53,6 +55,9 @@ public class AuthenticationController {
 			user.setCredentials(credentials);
 			credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
 			credentialsService.save(credentials);
+			
+			redirectAttributes.addFlashAttribute("flashMessages", "Registrazione effettuata. "
+					+ "Per accedere, attendere che un amministratore abiliti l'utenza.");
 			
 			return "redirect:/login";
 			

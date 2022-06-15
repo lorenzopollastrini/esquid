@@ -16,7 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import it.mantik.esquid.service.CustomOidcUserService;;
+import it.mantik.esquid.service.CustomOidcUserService;
+import it.mantik.esquid.service.CustomUserDetailsService;;
 
 @Configuration
 @EnableWebSecurity
@@ -27,7 +28,13 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
     private CustomOidcUserService customOidcUserService;
-
+	
+	@Autowired
+	private CustomUserDetailsService customUserDetailsService;
+	
+	@Autowired
+	private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+	
 	/**
 	 * Provides the authorization and authentication configurations
 	 */
@@ -44,10 +51,14 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 			
 			.formLogin(t -> t			// Login paragraph
 					.loginPage("/login")
+					.failureHandler(customAuthenticationFailureHandler)
 					.defaultSuccessUrl("/default", true))
+					.userDetailsService(customUserDetailsService)
+			
 			
 			.oauth2Login(t -> t
 					.loginPage("/login")
+					.failureHandler(customAuthenticationFailureHandler)
 					.userInfoEndpoint().oidcUserService(customOidcUserService))
 			
 			.logout(t -> t				// Logout paragraph
@@ -66,10 +77,12 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		auth.jdbcAuthentication()
+		auth
+			.jdbcAuthentication()
 			.dataSource(datasource)
 			.authoritiesByUsernameQuery("SELECT username, role FROM credentials WHERE username = ?")
 			.usersByUsernameQuery("SELECT username, password, enabled FROM credentials JOIN users ON credentials.id = users.credentials_id WHERE username = ? AND enabled = 'true'");
+			
 		
 	}
 	

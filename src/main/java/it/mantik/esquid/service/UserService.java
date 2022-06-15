@@ -52,6 +52,16 @@ public class UserService {
 		return userRepository.findById(id).get();
 	}
 	
+	public User findByUsername(String username) {
+		Optional<User> user = userRepository.findByUsername(username);
+		
+		if (user.isPresent()) {
+			return user.get();
+		}
+		
+		return null;
+	}
+	
 	public User findByoAuthUniqueIdentifier(String oAuthUniqueIdentifier) {
 		Optional<User> user = userRepository.findByoAuthUniqueIdentifier(oAuthUniqueIdentifier);
 		

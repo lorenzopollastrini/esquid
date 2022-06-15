@@ -15,11 +15,15 @@
 					<h1 class="heading-app-name pt-1 pb-5">eSquid</h1>
 				</div>
 				<h1>Accedi</h1>
+				
 				<br>
-				<div th:if="${param.error}" class="alert alert-danger" role="alert">Credenziali
-					errate</div>
+				
+				<div th:if="${param.error}" class="alert alert-dark" role="alert" th:text="${session[SPRING_SECURITY_LAST_EXCEPTION]}"></div>
 				<div th:if="${param.logout}" class="alert alert-success" role="alert">Hai
 					effettuato il logout</div>
+				
+				<div th:each="message : ${flashMessages}" th:text="${message}" class="alert alert-dark" role="alert">
+				</div>
 
 				<form th:action="@{/login}" method="post">
 					<div class="mb-3">

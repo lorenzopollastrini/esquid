@@ -1,7 +1,8 @@
 package it.mantik.esquid.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.context.MessageSource;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -17,6 +18,9 @@ public class CustomOidcUserService extends OidcUserService {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private MessageSource messageSource;
+	
 	@Override
     public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
         OidcUser oidcUser = super.loadUser(userRequest);
@@ -27,17 +31,13 @@ public class CustomOidcUserService extends OidcUserService {
         
         if(user != null) {
         	if (!user.isEnabled()) {
-            	throw new OAuth2AuthenticationException("Utente non abilitato.");
+            	throw new DisabledException(messageSource.getMessage("AbstractUserDetailsAuthenticationProvider.disabled", null, null));
             } else {
-            	return oidcUser;
+        		return oidcUser;
             }
         } else {
-        	try {
-                processOidcUser(userRequest, oidcUser);
-                throw new OAuth2AuthenticationException("Utente non abilitato.");
-           } catch (Exception ex) {
-               throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
-           }
+        	processOidcUser(userRequest, oidcUser);
+            throw new DisabledException("Registrazione effettuata. Per accedere, attendere che un amministratore abiliti l'utenza.");
         }
 
     }

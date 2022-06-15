@@ -21,7 +21,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class Match {
+public class PlayedMatch {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

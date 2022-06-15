@@ -2,22 +2,22 @@
 <html>
 
 <head
-	th:replace="fragments/base.html :: head(title='Modifica match')"></head>
+	th:replace="fragments/base.html :: head(title='Modifica partita giocata')"></head>
 
 <body>
 
-	<header th:replace="fragments/base.html :: header(pageTitle='Modifica match')"></header>
+	<header th:replace="fragments/base.html :: header(pageTitle='Modifica partita giocata')"></header>
 
 	<main>
 
 	<div class="card w-50 mx-auto mt-5 text-center">
 		<div class="card-header">
-			<h3>Modifica un match</h3>
+			<h3>Modifica partita giocata</h3>
 		</div>
 		<div class="card-body p-5">
 
-			<form th:action="@{'/admin/match/' + ${match.id} + '/update'}"
-				method="POST" th:object="${match}">
+			<form th:action="@{'/admin/played-match/' + ${playedMatch.id} + '/update'}"
+				method="POST" th:object="${playedMatch}">
 				<div class="form-group">
 					<label for="inputDateTime" class="form-label">Data ed ora
 						di inizio del match</label>

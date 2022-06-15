@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="fragments/base.html :: head(title='Crea partita giocata')"></head>
+
+<body>
+
+	<header th:replace="fragments/base.html :: header(pageTitle='Crea partita giocata')"></header>
+
+	<main>
+
+		<div class="card w-50 mx-auto mt-5 text-center">
+			<div class="card-header">
+				<h3>Crea partita giocata</h3>
+			</div>
+			<div class="card-body p-5">
+
+				<form th:action="@{'/admin/competition/' + ${competition.id} + '/played-match'}" method="POST"
+					th:object="${playedMatch}">
+
+					<div class="form-group">
+						<label for="inputDateTime" class="form-label">Data ed ora
+							di inizio della partita </label>
+						<div class="mb-4">
+							<input type="datetime-local" th:field="*{dateTime}" class="form-control"
+								th:classappend="*{#fields.hasErrors('dateTime') ? 'is-invalid' : ''}"
+								id="inputDateTime">
+							<div class="invalid-feedback">
+								<span th:if="${#fields.hasErrors('dateTime')}" th:errors="*{dateTime}"></span>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label for="inputOpponent" class="form-label">Avversario</label>
+						<div class="mb-4">
+							<input type="text" th:field="*{opponent}" class="form-control"
+								th:classappend="*{#fields.hasErrors('opponent') ? 'is-invalid' : ''}"
+								id="inputOpponent">
+							<div class="invalid-feedback">
+								<span th:if="${#fields.hasErrors('opponent')}" th:errors="*{opponent}"></span>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label for="result-radio-button" class="form-label">Risultato</label>
+						<div class="mb-4">
+							<div th:each="result : ${T(it.mantik.esquid.model.MatchResult).values()}">
+								<input id="result-radio-button" type="radio" th:field="*{result}" th:value="${result}"
+									th:classappend="*{#fields.hasErrors('result') ? 'is-invalid' : ''}">
+								<label th:if="${result == T(it.mantik.esquid.model.MatchResult).VICTORY}"
+									th:text="Vittoria" for="result-radio-button"> </label>
+								<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DEFEAT}"
+									th:text="Sconfitta" for="result-radio-button"> </label>
+								<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DRAW}"
+									th:text="Pareggio" for="result-radio-button"> </label>
+								<div th:if="${result == T(it.mantik.esquid.model.MatchResult).DRAW}"
+									class="invalid-feedback">
+									<span th:if="${#fields.hasErrors('result')}" th:errors="*{result}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="d-grid">
+						<button type="submit" class="btn text-white gradient-custom-2">Crea</button>
+					</div>
+				</form>
+			</div>
+
+			<a th:href="@{/admin}" class="link-purple card-footer text-muted">Annulla</a>
+
+
+		</div>
+
+	</main>
+	<div th:replace="fragments/base.html :: scripts"></div>
+</body>
+
+</html>

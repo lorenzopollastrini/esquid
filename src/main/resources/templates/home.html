@@ -59,7 +59,7 @@
 
 		</section>
 
-		<section th:unless="${#lists.isEmpty(events)}" class="my-3 p-3 bg-white rounded shadow-sm">
+		<section class="my-3 p-3 bg-white rounded shadow-sm">
 
 			<div sec:authorize="hasAuthority('ADMIN')" class="position-relative">
 				<a class="plus-button position-absolute top-0 end-0" type="button" th:href="@{/admin/event/new}">
@@ -122,7 +122,7 @@
 		</section>
 
 
-		<section th:unless="${#lists.isEmpty(competitions)}" class="my-3 p-3 bg-white rounded shadow-sm">
+		<section class="my-3 p-3 bg-white rounded shadow-sm">
 
 			<div sec:authorize="hasAuthority('ADMIN')" class="position-relative">
 				<a class="plus-button position-absolute top-0 end-0" type="button" th:href="@{/admin/competition/new}">
@@ -146,8 +146,8 @@
 								</button>
 								<ul class="dropdown-menu">
 									<li>
-										<a th:href="@{'/admin/competition/' + ${competition.id} + '/match/new'}"
-											class="dropdown-item">Aggiungi match</a>
+										<a th:href="@{'/admin/competition/' + ${competition.id} + '/played-match/new'}"
+											class="dropdown-item">Aggiungi partita giocata</a>
 									</li>
 									<li>
 										<a th:href="@{'/admin/competition/' + ${competition.id} + '/update'}"

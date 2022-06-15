@@ -33,7 +33,7 @@ public class Competition {
 	private String name;
 	
 	@OneToMany(mappedBy = "competition", cascade = CascadeType.REMOVE)
-	private Collection<Match> matches;
+	private Collection<PlayedMatch> playedMatches;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@Future
@@ -46,15 +46,15 @@ public class Competition {
 	private LocalDateTime endDateTime;
 	
 	public Competition() {
-		matches = new ArrayList<>();
+		playedMatches = new ArrayList<>();
 	}
 	
-	public void addMatch(Match match) {
-		matches.add(match);
+	public void addPlayedMatch(PlayedMatch playedMatch) {
+		playedMatches.add(playedMatch);
 	}
 	
-	public void removeMatch(Match match) {
-		matches.remove(match);
+	public void removePlayedMatch(PlayedMatch playedMatch) {
+		playedMatches.remove(playedMatch);
 	}
 	
 }

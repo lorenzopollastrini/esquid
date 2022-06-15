@@ -3,12 +3,59 @@
 	--secondary-color: #7033AD;
 	--tertiary-color: #5F005F;
 	--background-color: #202124;
+	--fa-primary-color: var(--tertiary-color);
+	--main-font-family: 'Chakra Petch', sans-serif;
 }
 
-html, body{
+html, body {
 	margin: 0px;
 	height: 100%;
 	background-color: var(--background-color);
+	font-family: var(--main-font-family);
+}
+
+.text-tertiary-color {
+	color: var(--tertiary-color);
+}
+
+section {
+	border-top: .2rem solid var(--primary-color);
+	border-bottom: .2rem solid var(--primary-color);
+}
+
+.heading-app-name {
+	font-family: 'Audiowide', cursive;
+	
+	/* fallback for old browsers */
+	background: var(--tertiary-color);
+	
+	/* Chrome 10-25, Safari 5.1-6 */
+	background: -webkit-linear-gradient(to right, var(--tertiary-color), var(--secondary-color));
+	
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: linear-gradient(to right, var(--tertiary-color), var(--secondary-color));
+	
+	background-clip: text;
+	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+}
+
+hr:not([size]) {
+	height: 0.05em;
+}
+
+.hr-text {
+    text-align: center;
+    color: black;
+    opacity: .5;
+}
+
+.hr-text:after {
+    background: white;
+    content: attr(data-content);
+    padding: 0 4px;
+    position: relative;
+    top: -13px;
 }
 
 @media (min-width: 576px) {
@@ -57,6 +104,10 @@ html, body{
 	color: var(--primary-color);
 }
 
+.link-purple:hover {
+	color: var(--secondary-color);
+}
+
 @media (min-width: 769px) {
 	.gradient-custom-2 {
 	border-top-right-radius: .3rem;
@@ -82,5 +133,27 @@ html, body{
 }
 
 .dropdown-custom .dropdown-item:active {
+	background-color: var(--secondary-color);
+}
+
+.plus-button {
+	border-radius: 5px;
+	font-size: 1.5rem;
+	line-height: 1rem;
+	color: var(--secondary-color);
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.plus-button:hover {
+	background-color: lightgrey;
+	color: var(--secondary-color);
+}
+
+.plus-button:focus {
+	background-color: lightgrey;
+}
+
+.plus-button:active {
 	background-color: var(--secondary-color);
 }

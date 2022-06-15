@@ -13,13 +13,14 @@
 
 			<div class="p-5 flex-fill">
 				<div class="text-center">
-					<h1 class="pt-1 pb-5 pb-">eSquid</h1>
+					<h1 class="heading-app-name pt-1 pb-5">eSquid</h1>
 				</div>
 				<h1>Registrati</h1>
 
+				<br>
 
 				<form th:action="@{/register}" method="post">
-					<div class="form-outline mb-4">
+					<div class="mb-3">
 						<label for="input-username" class="form-label">Username</label> 
 						<input type="text" th:field="${credentials.username}"
 							class="form-control"
@@ -31,7 +32,7 @@
 						</div>
 					</div>
 
-					<div class="form-outline mb-4">
+					<div class="mb-3">
 						<label for="input-password" class="form-label">Password</label>
 						<input type="password" th:field="${credentials.password}"
 							 class="form-control"
@@ -43,7 +44,7 @@
 						</div>
 					</div>
 					
-					<div class="form-outline mb-4">
+					<div class="mb-3">
 						<label for="input-name" class="form-label">Nome</label>
 						<input type="text" th:field="${user.name}"
 							 class="form-control"
@@ -55,7 +56,7 @@
 						</div>
 					</div>
 					
-					<div class="form-outline mb-4">
+					<div class="mb-3">
 						<label for="input-surname" class="form-label">Cognome</label>
 						<input type="text" th:field="${user.surname}"
 							class="form-control" 
@@ -67,13 +68,13 @@
 						</div>
 					</div>
 
-					<div class="d-grid pt-1 mb-5 pb-1">
+					<div class="d-grid">
 						<button type="submit"
-							class="btn text-white fa-lg gradient-custom-2 mb-3">Registrati</button>
+							class="btn text-white gradient-custom-2 mb-3">Registrati</button>
 					</div>
 
 				</form>
-				<div class="d-flex align-items-center justify-content-center pb-4">
+				<div class="d-flex align-items-center justify-content-center">
 					<div>
 						Hai gi&agrave; un account? <a th:href="@{/login}" class="link-purple">Accedi</a>.
 					</div>

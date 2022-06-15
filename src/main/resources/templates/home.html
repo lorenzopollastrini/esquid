@@ -5,20 +5,20 @@
 
 <body>
 
-	<header th:replace="fragments/base.html :: header(pageTitle='eSquid - Home')"></header>
+	<header th:replace="fragments/base.html :: header(pageTitle='Home')"></header>
 
 	<main class="container container-custom">
-	
+
 		<div th:each="message : ${successFlashMessages}" th:text="${message}" class="alert alert-success" role="alert">
 		</div>
 
 		<section sec:authorize="hasAuthority('ADMIN')" th:unless="${#lists.isEmpty(pendingUsers)}"
 			class="my-3 p-3 bg-white rounded shadow-sm">
 
-			<h6 class="pb-2 mb-0">Utenti in attesa di accettazione</h6>
+			<h6 class="text-tertiary-color"><i class="fa-solid fa-user-clock me-2"></i>Utenti in attesa di accettazione</h6>
 			<hr>
-			<div class="text-muted pt-3">
-
+			<div class="text-muted">
+			
 				<ul class="list-group">
 					<li th:each="pendingUser : ${pendingUsers}"
 						class="list-group-item d-flex justify-content-between align-items-center">
@@ -38,10 +38,10 @@
 
 		<section th:unless="${#lists.isEmpty(members)}" class="my-3 p-3 bg-white rounded shadow-sm">
 
-			<h6 class="pb-2 mb-0">Membri del team</h6>
+			<h6 class="text-tertiary-color"><i class="fa-solid fa-users me-2"></i>Membri del team</h6>
 			<hr>
-			<div class="text-muted pt-3">
-
+			<div class="text-muted">
+				
 				<ul class="list-group">
 					<li th:each="member : ${members}"
 						class="list-group-item d-flex justify-content-between align-items-center">
@@ -61,47 +61,59 @@
 
 		<section th:unless="${#lists.isEmpty(events)}" class="my-3 p-3 bg-white rounded shadow-sm">
 
-			<h6 class="pb-2 mb-0">Eventi</h6>
-			<hr>
-			<div class="text-muted pt-3">
+			<div sec:authorize="hasAuthority('ADMIN')" class="position-relative">
+				<a class="plus-button position-absolute top-0 end-0" type="button" th:href="@{/admin/event/new}">
+					<i class="bi bi-plus"></i>
+				</a>
+			</div>
 
+			<h6 class="text-tertiary-color"><i class="fa-solid fa-calendar-days me-2"></i>Eventi</h6>
+			<hr>
+			<div class="text-muted">
+			
 				<ul class="list-group">
-					<li th:each="event : ${events}"
-						class="list-group-item d-flex justify-content-between align-items-center">
-						<div>
+					<li th:each="event : ${events}" class="list-group-item">
+						<div class="d-flex justify-content-between align-items-center">
 							<a th:href="@{'/event/' + ${event.id}}" th:text="${event.name}" class="link-purple">
 							</a>
+							<div class="dropdown dropdown-custom">
+								<button class="dropdown-button" type="button" data-bs-toggle="dropdown"
+									aria-expanded="false">
+									<i class="bi bi-three-dots"></i>
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a th:if="${!#lists.contains(event.participants, currentUser)}"
+											th:href="@{'/event/' + ${event.id} + '/participate'}" class="dropdown-item">
+											Partecipa </a>
+										<a th:if="${#lists.contains(event.participants, currentUser)}"
+											th:href="@{'/event/' + ${event.id} + '/cancel-participation'}"
+											class="dropdown-item">
+											Annulla partecipazione </a>
+									</li>
+									<th:block sec:authorize="hasAuthority('ADMIN')">
+										<li>
+											<hr class="dropdown-divider">
+										</li>
+										<li>
+											<a th:href="@{'/admin/event/' + ${event.id} + '/update'}"
+												class="dropdown-item">Modifica generalità</a>
+										</li>
+										<li>
+											<a th:href="@{'/admin/event/' + ${event.id} + '/delete'}"
+												class="dropdown-item">Annulla evento</a>
+										</li>
+									</th:block>
+								</ul>
+							</div>
 						</div>
-
-						<div class="dropdown dropdown-custom">
-							<button class="dropdown-button" type="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								<i class="bi bi-three-dots"></i>
-							</button>
-							<ul class="dropdown-menu">
-								<li>
-									<a th:if="${!#lists.contains(event.participants, currentUser)}"
-										th:href="@{'/event/' + ${event.id} + '/participate'}" class="dropdown-item">
-										Partecipa </a>
-									<a th:if="${#lists.contains(event.participants, currentUser)}"
-										th:href="@{'/event/' + ${event.id} + '/cancel-participation'}"
-										class="dropdown-item">
-										Annulla partecipazione </a>
-								</li>
-								<th:block sec:authorize="hasAuthority('ADMIN')">
-									<li>
-										<hr class="dropdown-divider">
-									</li>
-									<li>
-										<a th:href="@{'/admin/event/' + ${event.id} + '/update'}"
-											class="dropdown-item">Modifica</a>
-									</li>
-									<li>
-										<a th:href="@{'/admin/event/' + ${event.id} + '/delete'}"
-											class="dropdown-item">Annulla</a>
-									</li>
-								</th:block>
-							</ul>
+						<div>
+							<i class="fa-solid fa-calendar-day me-2 text-tertiary-color"></i><span
+								th:text="${#temporals.format(event.dateTime, 'dd/MM/yyyy')}"></span>
+						</div>
+						<div>
+							<i class="fa-solid fa-clock me-2 text-tertiary-color"></i><span
+								th:text="${#temporals.format(event.dateTime, 'HH:mm')}"></span>
 						</div>
 					</li>
 				</ul>
@@ -110,38 +122,49 @@
 		</section>
 
 
-		<section th:unless="${#lists.isEmpty(events)}" class="my-3 p-3 bg-white rounded shadow-sm">
+		<section th:unless="${#lists.isEmpty(competitions)}" class="my-3 p-3 bg-white rounded shadow-sm">
 
-			<h6 class="pb-2 mb-0">Competizioni</h6>
+			<div sec:authorize="hasAuthority('ADMIN')" class="position-relative">
+				<a class="plus-button position-absolute top-0 end-0" type="button" th:href="@{/admin/competition/new}">
+					<i class="bi bi-plus"></i>
+				</a>
+			</div>
+
+			<h6 class="text-tertiary-color"><i class="fa-solid fa-trophy me-2"></i>Competizioni</h6>
 			<hr>
-			<div class="text-muted pt-3">
-
+			<div class="text-muted">
+			
 				<ul class="list-group">
-					<li th:each="competition : ${competitions}"
-						class="list-group-item d-flex justify-content-between align-items-center">
-						<div>
+					<li th:each="competition : ${competitions}" class="list-group-item">
+						<div class="d-flex justify-content-between align-items-center">
 							<a th:href="@{'/competition/' + ${competition.id}}" th:text="${competition.name}"
 								class="link-purple"> </a>
+							<div sec:authorize="hasAuthority('ADMIN')" class="dropdown dropdown-custom">
+								<button class="dropdown-button" type="button" data-bs-toggle="dropdown"
+									aria-expanded="false">
+									<i class="bi bi-three-dots"></i>
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a th:href="@{'/admin/competition/' + ${competition.id} + '/match/new'}"
+											class="dropdown-item">Aggiungi match</a>
+									</li>
+									<li>
+										<a th:href="@{'/admin/competition/' + ${competition.id} + '/update'}"
+											class="dropdown-item">Modifica generalità</a>
+									</li>
+									<li>
+										<a th:href="@{'/admin/competition/' + ${competition.id} + '/delete'}"
+											class="dropdown-item">Cancella</a>
+									</li>
+								</ul>
+							</div>
 						</div>
-						<div sec:authorize="hasAuthority('ADMIN')" class="dropdown dropdown-custom">
-							<button class="dropdown-button" type="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								<i class="bi bi-three-dots"></i>
-							</button>
-							<ul class="dropdown-menu">
-								<li>
-									<a th:href="@{'/admin/competition/' + ${competition.id} + '/match/new'}"
-										class="dropdown-item">Aggiungi match</a>
-								</li>
-								<li>
-									<a th:href="@{'/admin/competition/' + ${competition.id} + '/update'}"
-										class="dropdown-item">Modifica generalità</a>
-								</li>
-								<li>
-									<a th:href="@{'/admin/competition/' + ${competition.id} + '/delete'}"
-										class="dropdown-item">Cancella</a>
-								</li>
-							</ul>
+						<div>
+							<i class="fa-solid fa-calendar-week me-2 text-tertiary-color"></i><span
+								th:text="${#temporals.format(competition.startDateTime, 'dd/MM/yyyy')}"></span><i
+								class="fa-solid fa-arrow-right-long mx-2 text-tertiary-color"></i><span
+								th:text="${#temporals.format(competition.endDateTime, 'dd/MM/yyyy')}"></span>
 						</div>
 					</li>
 				</ul>
@@ -151,7 +174,7 @@
 	</main>
 
 	<div th:replace="fragments/base.html :: scripts"></div>
-	
+
 </body>
 
 </html>

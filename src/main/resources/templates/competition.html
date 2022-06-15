@@ -6,63 +6,107 @@
 <body>
 
 	<header th:replace="fragments/base.html :: header(pageTitle='Competizione')"></header>
-	
+
 	<main class="container container-custom">
-	
+
 		<div th:each="message : ${successFlashMessages}" th:text="${message}" class="alert alert-success" role="alert">
 		</div>
-	
+
 		<section class="my-3 p-3 bg-white rounded shadow-sm">
-		
+
 			<div sec:authorize="hasAuthority('ADMIN')" class="position-relative">
 				<div class="dropdown dropdown-custom position-absolute top-0 end-0 ">
-					<button class="dropdown-button" type="button" data-bs-toggle="dropdown"
-						aria-expanded="false">
+					<button class="dropdown-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<i class="bi bi-three-dots"></i>
 					</button>
 					<ul class="dropdown-menu">
-						<li>
-							<a th:href="@{'/admin/competition/' + ${competition.id} + '/match/new'}"
-								class="dropdown-item">Aggiungi match</a>
-						</li>
 						<li>
 							<a th:href="@{'/admin/competition/' + ${competition.id} + '/update'}"
 								class="dropdown-item">Modifica generalità</a>
 						</li>
 						<li>
-							<a
-								th:href="@{'/admin/competition/' + ${competition.id} + '/delete'}"
+							<a th:href="@{'/admin/competition/' + ${competition.id} + '/delete'}"
 								class="dropdown-item">Cancella</a>
 						</li>
 					</ul>
 				</div>
 			</div>
-		
-			<h6 th:text="${competition.name}" class="pb-2 mb-0"></h6>
+
+			<h6 th:text="${competition.name}" class="text-tertiary-color pb-2 mb-0"></h6>
+			<div>
+				<i class="fa-solid fa-calendar-week me-2 text-tertiary-color"></i><span
+					th:text="${#temporals.format(competition.startDateTime, 'dd/MM/yyyy, HH:mm')}"></span><i
+					class="fa-solid fa-arrow-right-long mx-2 text-tertiary-color"></i><span
+					th:text="${#temporals.format(competition.endDateTime, 'dd/MM/yyyy, HH:mm')}"></span>
+			</div>
 			<hr>
-			<h6>Partite</h6>
+			<div class="position-relative">
+				<div sec:authorize="hasAuthority('ADMIN')" class="position-relative">
+					<a class="plus-button position-absolute top-0 end-0" type="button"
+						th:href="@{'/admin/competition/' + ${competition.id} + '/match/new'}">
+						<i class="bi bi-plus"></i>
+					</a>
+				</div>
+				<h6 class="text-tertiary-color">Partite giocate</h6>
+			</div>
 			<div class="text-muted pt-2">
 
 				<ul class="list-group">
 
 					<li th:each="match : ${competition.matches}"
-						class="list-group-item d-flex justify-content-around align-items-center">
-
-						<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).VICTORY}"
-							th:text="Vittoria"></span>
-						<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DEFEAT}"
-							th:text="Sconfitta"></span>
-						<span th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DRAW}"
-							th:text="Pareggio"></span>
-
-						<span th:text="${'vs ' + match.opponent}"></span>
+						class="list-group-item"
+						th:classappend="${(match.result == T(it.mantik.esquid.model.MatchResult).VICTORY ? 'border-success' : '')
+						+ (match.result == T(it.mantik.esquid.model.MatchResult).DEFEAT ? 'border-danger' : '')
+						+ (match.result == T(it.mantik.esquid.model.MatchResult).DRAW ? 'border-secondary' : '')}">
+						
+						<div class="position-relative">
+							<div class="dropdown dropdown-custom position-absolute top-0 end-0 ">
+								<button class="dropdown-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="bi bi-three-dots"></i>
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a th:href="@{'/admin/match/' + ${match.id} + '/update'}"
+											class="dropdown-item">Modifica</a>
+									</li>
+									<li>
+										<a th:href="@{'/admin/match/' + ${match.id} + '/delete'}"
+											class="dropdown-item">Cancella</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						
+						<div>
+							<i class="fa-solid fa-calendar-check me-2 text-tertiary-color"></i><span
+								th:text="${#temporals.format(match.dateTime, 'dd/MM/yyyy, HH:mm')}"></span
+>
+						</div>
+						<div class="d-flex justify-content-around align-items-center">
+							<div>
+								<th:block th:if="${match.result == T(it.mantik.esquid.model.MatchResult).VICTORY}">
+									<i class="fa-solid fa-circle-check text-success me-2"></i><strong
+										th:text="Vittoria"></strong>
+								</th:block>
+								<th:block th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DEFEAT}">
+									<i class="fa-solid fa-circle-xmark text-danger me-2"></i><strong
+										th:text="Sconfitta"></strong>
+								</th:block>
+								<th:block th:if="${match.result == T(it.mantik.esquid.model.MatchResult).DRAW}">
+									<i class="fa-solid fa-circle-minus text-secondary me-2"></i><strong
+										th:text="Pareggio"></strong>
+								</th:block>
+								vs
+								<strong th:text="${match.opponent}"></strong>
+							</div>
+						</div>
 
 					</li>
 
 				</ul>
 
 			</div>
-			
+
 		</section>
 
 	</main>

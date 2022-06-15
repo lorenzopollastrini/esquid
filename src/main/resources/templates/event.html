@@ -6,28 +6,25 @@
 <body>
 
 	<header th:replace="fragments/base.html :: header(pageTitle='Evento')"></header>
-	
+
 	<main class="container container-custom">
-	
+
 		<div th:each="message : ${successFlashMessages}" th:text="${message}" class="alert alert-success" role="alert">
 		</div>
-	
+
 		<section class="my-3 p-3 bg-white rounded shadow-sm">
 			<div class="position-relative">
 				<div class="dropdown dropdown-custom position-absolute top-0 end-0 ">
-					<button class="dropdown-button" type="button" data-bs-toggle="dropdown"
-						aria-expanded="false">
+					<button class="dropdown-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<i class="bi bi-three-dots"></i>
 					</button>
 					<ul class="dropdown-menu">
 						<li>
 							<a th:if="${!#lists.contains(event.participants, currentUser)}"
-								th:href="@{'/event/' + ${event.id} + '/participate'}"
-								class="dropdown-item">
+								th:href="@{'/event/' + ${event.id} + '/participate'}" class="dropdown-item">
 								Partecipa </a>
 							<a th:if="${#lists.contains(event.participants, currentUser)}"
-								th:href="@{'/event/' + ${event.id} + '/cancel-participation'}"
-								class="dropdown-item">
+								th:href="@{'/event/' + ${event.id} + '/cancel-participation'}" class="dropdown-item">
 								Annulla partecipazione </a>
 						</li>
 						<th:block sec:authorize="hasAuthority('ADMIN')">
@@ -36,36 +33,43 @@
 							</li>
 							<li>
 								<a th:href="@{'/admin/event/' + ${event.id} + '/update'}"
-									class="dropdown-item">Modifica</a>
+									class="dropdown-item">Modifica generalità</a>
 							</li>
 							<li>
 								<a th:href="@{'/admin/event/' + ${event.id} + '/delete'}"
-									class="dropdown-item">Annulla</a>
+									class="dropdown-item">Annulla evento</a>
 							</li>
 						</th:block>
 					</ul>
 				</div>
-			</div>		
-		
-			<h6 th:text="${event.name}" class="pb-2 mb-0"></h6>
+			</div>
+
+			<h6 th:text="${event.name}" class="text-tertiary-color pb-2 mb-0"></h6>
+			<div>
+				<i class="fa-solid fa-calendar-day me-2 text-tertiary-color"></i><span
+					th:text="${#temporals.format(event.dateTime, 'dd/MM/yyyy')}"></span>
+			</div>
+			<div>
+				<i class="fa-solid fa-clock me-2 text-tertiary-color"></i><span
+					th:text="${#temporals.format(event.dateTime, 'HH:mm')}"></span>
+			</div>
 			<hr>
-			<h6>Partecipanti</h6>
+			<h6 class="text-tertiary-color">Partecipanti</h6>
 
 			<div class="text-muted pt-2">
 
 				<ul class="list-group">
 					<li th:each="participant : ${event.participants}"
-					
-						class="list-group-item d-flex justify-content-between align-items-center"><span
-						th:text="${participant.surname + ', ' + participant.name}"></span>
-					
+						class="list-group-item d-flex justify-content-between align-items-center"><strong
+							th:text="${participant.name + ' ' + participant.surname}" class="text-gray-dark"></strong>
+
 					</li>
 				</ul>
-				
+
 			</div>
-			
+
 		</section>
-	
+
 	</main>
 
 	<div th:replace="fragments/base.html :: scripts"></div>

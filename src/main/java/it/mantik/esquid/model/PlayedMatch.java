@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -31,7 +30,6 @@ public class PlayedMatch {
 	private Competition competition;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-	@Future
 	@NotNull
 	private LocalDateTime dateTime;
 	

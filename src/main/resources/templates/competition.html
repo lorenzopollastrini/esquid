@@ -59,7 +59,7 @@
 						+ (playedMatch.result == T(it.mantik.esquid.model.MatchResult).DEFEAT ? 'border-danger' : '')
 						+ (playedMatch.result == T(it.mantik.esquid.model.MatchResult).DRAW ? 'border-secondary' : '')}">
 						
-						<div class="position-relative">
+						<div sec:authorize="hasAuthority('ADMIN')" class="position-relative">
 							<div class="dropdown dropdown-custom position-absolute top-0 end-0 ">
 								<button class="dropdown-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 									<i class="bi bi-three-dots"></i>

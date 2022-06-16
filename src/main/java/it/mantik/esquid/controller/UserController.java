@@ -43,10 +43,6 @@ public class UserController {
 		
 		redirectAttributes.addFlashAttribute("successFlashMessages", "Utente disabilitato");
 		
-		/* TODO: remove the associated user from events etc.;
-		 * logout the associated user;
-		 */
-		
 		return "redirect:/";
 		
 	}

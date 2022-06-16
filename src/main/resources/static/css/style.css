@@ -47,6 +47,7 @@ hr:not([size]) {
 .hr-text {
     text-align: center;
     color: black;
+    overflow: visible;
     opacity: .5;
 }
 

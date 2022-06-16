@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head
-	th:replace="fragments/base.html :: head(title='Modifica competizione')"></head>
+<head th:replace="fragments/base.html :: head(title='Modifica competizione')"></head>
 
 <body>
 
@@ -10,70 +9,68 @@
 
 	<main>
 
-	<div class="card w-50 mx-auto mt-5 text-center">
-		<div class="card-header">
-			<h3>Modifica una competizione</h3>
+		<div class="container container-custom-form">
+			<div class="card my-3">
+				<div class="card-header">
+					<h3 class="text-tertiary-color text-center mb-0">Crea competizione</h3>
+				</div>
+				<div class="card-body p-5">
+
+					<form th:action="@{'/admin/competition/' + ${competition.id} + '/update'}" method="POST" th:object="${competition}">
+
+						<div class="form-group row">
+							<label for="inputName" class="form-label">Nome della
+								competizione </label>
+							<div class="mb-4">
+								<input type="text" th:field="*{name}" class="form-control"
+									th:classappend="*{#fields.hasErrors('name') ? 'is-invalid' : ''}" id="inputName">
+
+								<div class="invalid-feedback">
+									<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="inputStartDateTime" class="form-label">Inizio della competizione</label>
+							<div class="mb-4">
+								<input type="datetime-local" th:field="*{startDateTime}"
+									class="form-control datetimepicker"
+									th:classappend="*{#fields.hasErrors('startDateTime') ? 'is-invalid' : ''}"
+									id="inputStartDateTime">
+								<div class="invalid-feedback">
+									<span th:if="${#fields.hasErrors('startDateTime')}"
+										th:errors="*{startDateTime}"></span>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="form-group row">
+							<label for="inputEndDateTime" class="form-label">Fine della competizione</label>
+							<div class="mb-4">
+								<input type="datetime-local" th:field="*{endDateTime}"
+									class="form-control datetimepicker"
+									th:classappend="*{#fields.hasErrors('endDateTime') ? 'is-invalid' : ''}"
+									id="inputEndDateTime">
+								<div class="invalid-feedback">
+									<span th:if="${#fields.hasErrors('endDateTime')}" th:errors="*{endDateTime}"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="d-grid">
+							<button type="submit"
+								class="btn text-white gradient-custom-2 float-right mr-4">Crea</button>
+						</div>
+					</form>
+
+				</div>
+				<a th:href="@{/}" class="link-purple card-footer text-center text-muted">Annulla</a>
+
+			</div>
 		</div>
-		<div class="card-body p-5">
 
-			<form
-				th:action="@{'/admin/competition/' + ${competition.id} + '/update'}"
-				method="POST" th:object="${competition}">
-
-				<div class="form-group row">
-					<label for="inputName" class="form-label">Nome della
-						competizione </label>
-					<div class="mb-4">
-						<input type="text" th:field="*{name}" class="form-control"
-							th:classappend="*{#fields.hasErrors('name') ? 'is-invalid' : ''}"
-							id="inputName">
-						<div class="invalid-feedback">
-							<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label for="inputStartDateTime" class="form-label">Data ed
-						ora di inizio della competizione dell'evento </label>
-					<div class="mb-4">
-						<input type="datetime-local" th:field="*{startDateTime}"
-							class="form-control datetimepicker"
-							th:classappend="*{#fields.hasErrors('startDateTime') ? 'is-invalid' : ''}"
-							id="inputStartDateTime">
-						<div class="invalid-feedback">
-							<span th:if="${#fields.hasErrors('startDateTime')}"
-								th:errors="*{startDateTime}"></span>
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group row">
-					<label for="inputEndDateTime" class="form-label">Data ed
-						ora di fine della competizione dell'evento </label>
-					<div class="mb-4">
-						<input type="datetime-local" th:field="*{endDateTime}"
-							class="form-control datetimepicker"
-							th:classappend="*{#fields.hasErrors('endDateTime') ? 'is-invalid' : ''}"
-							id="inputEndDateTime">
-						<div class="invalid-feedback">
-							<span th:if="${#fields.hasErrors('endDateTime')}"
-								th:errors="*{endDateTime}"></span>
-						</div>
-					</div>
-				</div>
-
-				<input type="hidden" th:field="*{id}" />
-				<input type="hidden" th:field="*{playedMatches}" />
-
-				<div class="d-grid">
-					<button type="submit" class="btn text-white gradient-custom-2">Salva
-						modifiche</button>
-				</div>
-			</form>
-		</div>
-		<a th:href="@{/admin}" class="link-purple card-footer text-muted">Annulla</a>
-	</div>
 	</main>
 	<div th:replace="fragments/base.html :: scripts"></div>>
 </body>

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head
-	th:replace="fragments/base.html :: head(title='Modifica partita giocata')"></head>
+<head th:replace="fragments/base.html :: head(title='Modifica partita giocata')"></head>
 
 <body>
 
@@ -10,75 +9,72 @@
 
 	<main>
 
-	<div class="card w-50 mx-auto mt-5 text-center">
-		<div class="card-header">
-			<h3>Modifica partita giocata</h3>
+		<div class="container container-custom-form">
+			<div class="card my-3">
+				<div class="card-header">
+					<h3 class="text-tertiary-color text-center mb-0">Crea partita giocata</h3>
+				</div>
+				<div class="card-body p-5">
+
+					<form th:action="@{'/admin/played-match/' + ${playedMatch.id} + '/update'}" method="POST"
+						th:object="${playedMatch}">
+
+						<div class="form-group">
+							<label for="inputOpponent" class="form-label">Avversario</label>
+							<div class="mb-4">
+								<input type="text" th:field="*{opponent}" class="form-control"
+									th:classappend="*{#fields.hasErrors('opponent') ? 'is-invalid' : ''}"
+									id="inputOpponent">
+								<div class="invalid-feedback">
+									<span th:if="${#fields.hasErrors('opponent')}" th:errors="*{opponent}"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputDateTime" class="form-label">Inizio della partita </label>
+							<div class="mb-4">
+								<input type="datetime-local" th:field="*{dateTime}" class="form-control"
+									th:classappend="*{#fields.hasErrors('dateTime') ? 'is-invalid' : ''}"
+									id="inputDateTime">
+								<div class="invalid-feedback">
+									<span th:if="${#fields.hasErrors('dateTime')}" th:errors="*{dateTime}"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="result-radio-button" class="form-label">Risultato</label>
+							<div class="mb-4">
+								<div th:each="result : ${T(it.mantik.esquid.model.MatchResult).values()}">
+									<input id="result-radio-button" type="radio" th:field="*{result}"
+										th:value="${result}"
+										th:classappend="*{#fields.hasErrors('result') ? 'is-invalid' : ''}">
+									<label th:if="${result == T(it.mantik.esquid.model.MatchResult).VICTORY}"
+										th:text="Vittoria" for="result-radio-button"> </label>
+									<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DEFEAT}"
+										th:text="Sconfitta" for="result-radio-button"> </label>
+									<label th:if="${result == T(it.mantik.esquid.model.MatchResult).DRAW}"
+										th:text="Pareggio" for="result-radio-button"> </label>
+									<div th:if="${result == T(it.mantik.esquid.model.MatchResult).DRAW}"
+										class="invalid-feedback">
+										<span th:if="${#fields.hasErrors('result')}" th:errors="*{result}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="d-grid">
+							<button type="submit" class="btn text-white gradient-custom-2">Crea</button>
+						</div>
+					</form>
+				</div>
+
+				<a th:href="@{/}" class="link-purple card-footer text-center text-muted">Annulla</a>
+
+
+			</div>
 		</div>
-		<div class="card-body p-5">
-
-			<form th:action="@{'/admin/played-match/' + ${playedMatch.id} + '/update'}"
-				method="POST" th:object="${playedMatch}">
-				<div class="form-group">
-					<label for="inputDateTime" class="form-label">Data ed ora
-						di inizio del match</label>
-					<div class="mb-4">
-						<input type="datetime-local" th:field="*{dateTime}"
-							class="form-control"
-							th:classappend="*{#fields.hasErrors('dateTime') ? 'is-invalid' : ''}"
-							id="inputDateTime">
-						<div class="invalid-feedback">
-							<span th:if="${#fields.hasErrors('dateTime')}"
-								th:errors="*{dateTime}"></span>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="form-group">
-					<label for="inputOpponent" class="form-label">Avversario</label>
-					<div class="mb-4">
-						<input type="text" th:field="*{opponent}" class="form-control"
-							th:classappend="*{#fields.hasErrors('opponent') ? 'is-invalid' : ''}"
-							id="inputOpponent">
-						<div class="invalid-feedback">
-							<span th:if="${#fields.hasErrors('opponent')}"
-								th:errors="*{opponent}"></span>
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="result-radio-button" class="form-label">Risultato</label>
-					<div class="mb-4">
-						<div
-							th:each="result : ${T(it.mantik.esquid.model.MatchResult).values()}">
-							<input id="result-radio-button" type="radio" th:field="*{result}"
-								th:value="${result}"> <label
-								th:if="${result == T(it.mantik.esquid.model.MatchResult).VICTORY}"
-								th:text="Vittoria" for="result-radio-button"> </label> <label
-								th:if="${result == T(it.mantik.esquid.model.MatchResult).DEFEAT}"
-								th:text="Sconfitta" for="result-radio-button"> </label> <label
-								th:if="${result == T(it.mantik.esquid.model.MatchResult).DRAW}"
-								th:text="Pareggio" for="result-radio-button"> </label>
-						</div>
-					</div>
-				</div>
-
-				<span th:if="${#fields.hasErrors('result')}" th:errors="*{result}"></span>
-
-				<input type="hidden" th:field="*{id}" />
-				<input type="hidden" th:field="*{competition}" />
-
-				<div class="d-grid">
-					<button type="submit" class="btn text-white gradient-custom-2">Salva
-						modifiche</button>
-				</div>
-			</form>
-		</div>
-
-		<a th:href="@{/admin}" class="link-purple card-footer text-muted">Annulla</a>
-
-	</div>
 
 	</main>
 

@@ -88,6 +88,36 @@ hr:not([size]) {
   }
 }
 
+@media (min-width: 576px) {
+  .container-custom-form {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-custom-form {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-custom-form {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-custom-form {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container-custom-form {
+    max-width: 500px;
+  }
+}
+
 .gradient-custom-2 {
 	/* fallback for old browsers */
 	background: var(--tertiary-color);

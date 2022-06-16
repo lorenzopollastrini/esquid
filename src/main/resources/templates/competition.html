@@ -51,7 +51,7 @@
 			</div>
 			<div class="text-muted pt-2">
 
-				<ul class="list-group">
+				<ul th:unless="${#lists.isEmpty(competition.playedMatches)}" class="list-group">
 
 					<li th:each="playedMatch : ${competition.playedMatches}"
 						class="list-group-item"
@@ -104,6 +104,8 @@
 					</li>
 
 				</ul>
+
+				<p th:if="${#lists.isEmpty(competition.playedMatches)}">Non è ancora stata inserita alcuna partita giocata in questa competizione</p>
 
 			</div>
 

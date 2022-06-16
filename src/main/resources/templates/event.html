@@ -58,13 +58,15 @@
 
 			<div class="text-muted pt-2">
 
-				<ul class="list-group">
+				<ul th:unless="${#lists.isEmpty(event.participants)}" class="list-group">
 					<li th:each="participant : ${event.participants}"
 						class="list-group-item d-flex justify-content-between align-items-center"><strong
 							th:text="${participant.name + ' ' + participant.surname}" class="text-gray-dark"></strong>
 
 					</li>
 				</ul>
+				
+				<p th:if="${#lists.isEmpty(event.participants)}">Nessuno ha ancora confermato la propria partecipazione a questo evento</p>
 
 			</div>
 

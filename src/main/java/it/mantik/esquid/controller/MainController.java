@@ -36,8 +36,8 @@ public class MainController {
 		
 		Collection<User> pendingUsers = userService.findByEnabled(false);
 		Collection<User> members = userService.findByEnabled(true);
-		Collection<Event> events = eventService.findAll();
-		Collection<Competition> competitions = competitionService.findAll();
+		Collection<Event> events = eventService.findAllByOrderByDateTimeAsc();
+		Collection<Competition> competitions = competitionService.findAllByOrderByStartDateTimeAsc();
 		
 		model.addAttribute("currentUser", currentUser);
 		model.addAttribute("pendingUsers", pendingUsers);

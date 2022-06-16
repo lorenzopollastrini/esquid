@@ -22,11 +22,11 @@ public class CompetitionService {
 		return competitionRepository.save(competition);
 	}
 	
-	public Collection<Competition> findAll() {
+	public Collection<Competition> findAllByOrderByStartDateTimeAsc() {
 		
 		Collection<Competition> result = new ArrayList<>();
 		
-		competitionRepository.findAll().forEach(result::add);
+		competitionRepository.findAllByOrderByStartDateTimeAsc().forEach(result::add);
 		
 		return result;
 		

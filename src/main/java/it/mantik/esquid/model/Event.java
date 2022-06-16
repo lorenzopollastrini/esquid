@@ -2,7 +2,7 @@ package it.mantik.esquid.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,7 +38,8 @@ public class Event {
 	private LocalDateTime dateTime;
 	
 	@ManyToMany
-	private Collection<User> participants;
+	@OrderBy("surname")
+	private List<User> participants;
 	
 	public Event() {
 		participants = new ArrayList<>();

@@ -22,11 +22,11 @@ public class EventService {
 		return eventRepository.save(event);
 	}
 	
-	public Collection<Event> findAll() {
+	public Collection<Event> findAllByOrderByDateTimeAsc() {
 		
 		Collection<Event> result = new ArrayList<>();
 		
-		eventRepository.findAll().forEach(result::add);
+		eventRepository.findAllByOrderByDateTimeAsc().forEach(result::add);
 		
 		return result;
 		

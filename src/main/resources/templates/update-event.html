@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head
-	th:replace="fragments/base.html :: head(title='Modifica evento')"></head>
+<head th:replace="fragments/base.html :: head(title='Modifica evento')"></head>
 
 <body>
 
@@ -10,55 +9,54 @@
 
 	<main>
 
-	<div class="container container-custom-form">
-		<div class="card my-3">
-			<div class="card-header">
-				<h3 class="text-center text-tertiary-color mb-0">Modifica evento</h3>
-			</div>
-			<div class="card-body p-5">
-	
-				<form th:action="@{'/admin/event/' + ${event.id} + '/update'}" method="POST" th:object="${event}">
-	
-					<div class="form-group">
-						<label for="inputName" class="form-label">Nome dell'evento
-						</label>
-						<div class="mb-4">
-							<input type="text" th:field="*{name}" class="form-control"
-								th:classappend="*{#fields.hasErrors('name') ? 'is-invalid' : ''}"
-								id="inputName">
-							<div class="invalid-feedback">
-								<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+		<div class="container container-custom-form">
+			<div class="card my-3">
+				<div class="card-header">
+					<h3 class="text-center text-tertiary-color mb-0">Modifica evento</h3>
+				</div>
+				<div class="card-body p-5">
+
+					<form th:action="@{'/admin/event/' + ${event.id} + '/update'}" method="POST" th:object="${event}">
+
+						<div class="form-group">
+							<label for="inputName" class="form-label">Nome dell'evento
+							</label>
+							<div class="mb-4">
+								<input type="text" th:field="*{name}" class="form-control"
+									th:classappend="*{#fields.hasErrors('name') ? 'is-invalid' : ''}" id="inputName">
+								<div class="invalid-feedback">
+									<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+								</div>
 							</div>
 						</div>
-					</div>
-	
-	
-					<div class="form-group">
-						<label for="inputDateTime" class="form-label">Inizio dell'evento </label>
-						<div class="mb-4">
-							<input type="datetime-local" th:field="*{dateTime}"
-								class="form-control datetimepicker"
-								th:classappend="*{#fields.hasErrors('dateTime') ? 'is-invalid' : ''}"
-								id="inputDateTime">
-							<div class="invalid-feedback">
-								<span th:if="${#fields.hasErrors('dateTime')}"
-									th:errors="*{dateTime}"></span>
+
+
+						<div class="form-group">
+							<label for="inputDateTime" class="form-label">Inizio dell'evento </label>
+							<div class="mb-4">
+								<input type="datetime-local" th:field="*{dateTime}" class="form-control datetimepicker"
+									th:classappend="*{#fields.hasErrors('dateTime') ? 'is-invalid' : ''}"
+									id="inputDateTime">
+								<div class="invalid-feedback">
+									<span th:if="${#fields.hasErrors('dateTime')}" th:errors="*{dateTime}"></span>
+								</div>
 							</div>
 						</div>
-					</div>
-	
-					<div class="d-grid">
-						<button type="submit"
-							class="btn text-white gradient-custom-2">Crea</button>
-					</div>
-	
-				</form>
+
+						<input type="hidden" th:field="*{id}" />
+						<input type="hidden" th:field="*{participants}" />
+						
+						<div class="d-grid">
+							<button type="submit" class="btn text-white gradient-custom-2">Crea</button>
+						</div>
+
+					</form>
+				</div>
+
+				<a th:href="@{/}" class="link-purple card-footer text-center text-muted">Annulla</a>
+
 			</div>
-	
-			<a th:href="@{/}" class="link-purple card-footer text-center text-muted">Annulla</a>
-	
 		</div>
-	</div>
 
 
 	</main>

@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -20,12 +19,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 			HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 		
-		if (exception instanceof DisabledException) {
-			request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception.getMessage());
-		} else {
-			request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception.getMessage());
-		}
-		
+		request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception.getMessage());
 		
 		response.sendRedirect("/login?error");
 		

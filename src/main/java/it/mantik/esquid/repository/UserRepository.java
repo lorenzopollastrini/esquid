@@ -11,12 +11,12 @@ import it.mantik.esquid.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 	
-	@Query("SELECT u FROM User u WHERE u.credentials.username = :username")
+	@Query("SELECT u FROM User u WHERE u.credentials.username = :username ORDER BY u.surname ASC")
 	public Optional<User> findByUsername(@Param("username") String username);
 	
 	public Optional<User> findByoAuthUniqueIdentifier(String oAuthUniqueIdentifier);
 	
-	@Query("SELECT u FROM User u WHERE u.enabled = :enabled")
+	@Query("SELECT u FROM User u WHERE u.enabled = :enabled ORDER BY u.surname ASC")
 	public Collection<User> findByEnabled(@Param("enabled") boolean enabled);
 	
 }

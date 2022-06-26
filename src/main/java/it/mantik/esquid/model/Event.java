@@ -1,8 +1,8 @@
 package it.mantik.esquid.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,10 +39,10 @@ public class Event {
 	
 	@ManyToMany
 	@OrderBy("surname")
-	private List<User> participants;
+	private Set<User> participants;
 	
 	public Event() {
-		participants = new ArrayList<>();
+		participants = new HashSet<>();
 	}
 	
 	public void addParticipant(User participant) {

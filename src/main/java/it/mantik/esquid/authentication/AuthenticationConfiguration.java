@@ -27,7 +27,7 @@ public class AuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 	DataSource datasource;
 	
 	@Autowired
-    private CustomOidcUserService customOidcUserService;
+    	private CustomOidcUserService customOidcUserService;
 	
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
